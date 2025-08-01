@@ -1,0 +1,31 @@
+import React from "react";
+import ProductSection from "./ProductSection";
+
+interface Product {
+  id: string;
+  imageUrl: string;
+  title: string;
+  tags: string[];
+  price: number;
+  originalPrice: number;
+  rating: number;
+  isWishlisted: boolean;
+  isAddedToCart: boolean;
+}
+
+interface SectionProps {
+  products: Product[];
+  toggleWishlist: (id: string) => void;
+  toggleAddToCart: (id: string) => void;
+}
+
+const SnacksMunchiesSection: React.FC<SectionProps> = ({ products, toggleWishlist, toggleAddToCart }) => (
+  <ProductSection
+    title="Snacks & Munchies"
+    products={products}
+    toggleWishlist={toggleWishlist}
+    toggleAddToCart={toggleAddToCart}
+  />
+);
+
+export default SnacksMunchiesSection; 

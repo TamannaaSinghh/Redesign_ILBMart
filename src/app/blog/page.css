@@ -1,0 +1,8 @@
+.blog-main {
+  min-height: 100vh;
+}
+
+.blog-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: bold;
+} 

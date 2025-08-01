@@ -1,0 +1,29 @@
+.categorysection-root {
+  margin-bottom: 3rem;
+}
+.categorysection-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #f3f4f6;
+}
+.categorysection-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .categorysection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 768px) {
+  .categorysection-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .categorysection-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+} 

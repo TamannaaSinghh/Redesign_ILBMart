@@ -1,0 +1,312 @@
+.manageaccount-root {
+  padding: 20px;
+  background: #fff;
+  border-radius: 0.75rem;
+  margin-right: 0;
+  width: 900px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.manageaccount-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #404040;
+  margin-bottom: 36px;
+}
+
+.manageaccount-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+
+}
+
+.manageaccount-userinfo {
+  position: relative;
+  width: 480px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  padding: 22px 10px 10px 10px;
+  margin-left: 10px;
+  /* border: 1px solid red; */
+
+}
+
+.manageaccount-editicon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+/* .manageaccount-userinfo-content {
+  border: 1px solid red;
+} */
+
+.manageaccount-userinfo-row {
+  display: flex;
+  gap: 25px;
+  /* border: 1px solid red; */
+
+}
+
+.manageaccount-avatar {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+}
+
+.manageaccount-userinfo-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  /* border: 1px solid red; */
+  margin-top: -1px;
+  margin-bottom: 9px;
+  position: static;
+  margin-left: -2rem;
+
+}
+
+.manageaccount-label {
+  font-size: 12px;
+  margin-bottom: 3px;
+  color: #8C8C8C;
+  margin-top: -3px;
+}
+
+
+
+.manageaccount-orders {
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  width: 340px;
+  padding: 8px;
+}
+
+.manageaccount-orders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.manageaccount-orders-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #404040;
+  width: 264px;
+}
+
+.manageaccount-orders-seeall {
+  font-size: 14px;
+  color: #5C5C5C80;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.manageaccount-orders-seeall:hover {
+  color: #374151;
+}
+
+.manageaccount-orders-empty {
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 23px;
+  justify-content: center;
+  text-align: center;
+  width: 324px;
+}
+
+.manageaccount-orders-empty-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.manageaccount-orders-empty-icon {
+  color: #9ca3af;
+  margin-top: -15px;
+}
+
+.manageaccount-orders-empty-title {
+  font-size: 14px;
+  text-align: left;
+  font-weight: 600;
+  color: #404040;
+  margin-bottom: 0px;
+}
+
+.manageaccount-orders-empty-desc {
+  font-size: 9px;
+  text-align: left;
+  width: 100%;
+  color: #878787;
+}
+
+.manageaccount-orders-empty-btn {
+  background: #47B05A;
+  width: 100px;
+  height: 34px;
+  padding: 16px;
+  color: #fff;
+  font-size: 11px;
+  transition: background 0.2s;
+}
+
+.manageaccount-orders-empty-btn:hover {
+  background: #15803d;
+}
+
+/* Add these styles to your existing CSS */
+
+.manageaccount-avatar-container {
+  position: relative;
+  margin-right: 1.5rem;
+  padding-bottom: 0px;
+
+}
+
+.manageaccount-avatar-actions {
+  width: 105px;
+  height: 14px;
+  position: relative;
+  bottom: 0;
+  top: 10;
+  left: 9.7;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0.10rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.manageaccount-avatar-action-btn {
+  background: none;
+  border: none;
+  color: #47B05A;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: color 0.4s;
+  position: static;
+  left: 0.40rem;
+  font-size: 8px;
+  font-style: Semi Bold;
+  font-weight: 600;
+  line-height: 100%;
+  gap: 0.40rem;
+
+}
+
+.manageaccount-trash-action-btn {
+  background: none;
+  border: none;
+  color: #7c7c7c;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: color 0.4s;
+  position: static;
+  right: 0.25rem;
+  margin-right: 5px;
+  font-size: 8px;
+  font-style: Semi Bold;
+  font-weight: 600;
+  line-height: 100%;
+  gap: 0.40rem;
+}
+
+.manageaccount-avatar-action-btn:hover {
+  color: #ddd;
+}
+
+.manageaccount-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+  color: #333;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.manageaccount-value {
+  padding: 12px;
+  color: #404040;
+  background: #F7F7F7;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: -9px;
+  /* width: 300px; */
+}
+
+.manageaccount-input {
+  padding: 12px;
+  color: #404040;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: -9px;
+  width: 319px;
+}
+
+.manageaccount-input:focus {
+  outline: none;
+  border-color: #666;
+}
+
+.manageaccount-actions {
+  width: 190px;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 0.5rem;
+  padding: 0rem;
+  margin-left: 19rem;
+  /* border: 1px solid #f51f1f; */
+}
+
+.manageaccount-action-btn {
+  font-weight: 600;
+  font-size: 12px;
+  color: #6C6C6C;
+  min-width: 90px;
+  max-height: 30px;
+  border-radius: 6px;
+  top: 9px;
+  right: 38px;
+  bottom: 9px;
+  left: 38px;
+  gap: 10px;
+  border: 1px solid #d1d5db;
+}
+
+#update {
+  color: #FFFDFA;
+  background-color: #47B05A;
+}
+
+#update:hover {
+  background-color: #369a48;
+}

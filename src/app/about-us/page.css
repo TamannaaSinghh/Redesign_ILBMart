@@ -1,0 +1,12 @@
+.about-main {
+  min-height: 100vh;
+}
+
+.about-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: bold;
+  background-color: #22c55e; /* bg-green-500 */
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+} 

@@ -1,0 +1,376 @@
+/* General Container */
+
+.address-container {
+  background: #fff;
+  font-weight: 600;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', sans-serif;
+  width: 900px;
+}
+
+/* Header */
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #404040;
+  margin-bottom: 20px;
+}
+
+.add-button {
+  background-color: #47B05A;
+  color: white;
+  padding: 6px 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s ease-in-out;
+}
+.add-button:hover {
+  background-color: #268e39;
+}
+
+/* Table */
+.address-table {
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-collapse: collapse;
+  font-size: 14px;
+  color: black;
+}
+
+.address-table thead {
+  background-color: #F1F1F1;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.address-table th,
+.address-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Icons and Type Tag */
+.type-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #505050;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  color: #424242;
+}
+
+.primary-badge {
+  background-color: #d1fae5;
+  color: #008d65;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  margin-left: 6px;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.edit-button {
+  background-color: rgb(71, 176, 90);
+  color: white;
+  border: none;
+  padding: 6px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.delete-button {
+  background-color: rgb(220, 53, 69);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.type-buttons {
+  display: flex;
+  gap: 9px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.type-button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.type-button:hover {
+  background-color: #f4f4f4;
+}
+
+.type-button.active {
+  background-color: #47B05A;
+  color: white;
+  border-color: #47B05A;
+}
+
+/* Toggle switch container */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-left: 22px;
+}
+
+/* Hide default checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+/* Checked state */
+input:checked + .slider {
+  background-color: #1dc300;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+
+/* Edit Modal */
+.edit-dialog {
+  padding: 32px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  max-width: 860px !important;
+  width: 100%;
+  color: black;
+}
+
+.optional{
+  color: rgb(163, 163, 163);
+}
+
+.dialog-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: left;
+  color: #1f2937;
+}
+
+.right-box{
+  padding-left: 40px;
+  position: relative;
+}
+
+/* Form Layout */
+.edit-form {
+  display: flex;
+  margin-bottom: 24px;
+}
+.row{
+  margin-bottom: 20px;
+}
+
+.first-edit-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.edit-form label {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.edit-form input {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background-color: #f9fafb;
+  transition: border 0.2s;
+}
+.edit-form input:focus {
+  border: 1px solid #d1d5db;
+  outline: none;
+  box-shadow: none;
+}
+
+.submit-btn {
+  grid-column: span 2;
+  background-color: #47B05A;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 10px;
+  bottom: -10px;
+  padding: 12px 100px;
+  position: absolute;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.submit-btn:hover {
+  background-color: #27953b;
+}
+
+
+
+/* Delete Modal */
+.custom-alert {
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #fff;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: auto;
+}
+
+.alert-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2e2e2e;
+  text-align: center;
+}
+
+.alert-text {
+  margin-top: 40px;
+  color: #555;
+  font-size: 14px;
+}
+
+.alert-footer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.cancel-btn {
+  background-color: white;
+  border: 1px solid #d1d5db;
+  color: #111827;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.delete-btn {
+  background-color: #e60023;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Other Styles */
+.limit-message {
+  margin-top: 80px;
+  font-size: 12px;
+  text-align: center;
+  padding: 5px 30px;
+  background-color: #f6f6f6;
+  border-radius: 4px;
+  color: #5c5c5c;
+  display: inline-block;
+}
+
+.message {
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.primary-msg{
+  margin-right: 15px;
+  font-size: 15px;
+}
+
+
+.submit-button {
+  background-color: #4f46e5;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.checkbox-row{
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+}

@@ -1,0 +1,293 @@
+.account-deletion-container {
+  background: #FFFFFF;
+  font-weight: 600;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 900px;
+  height: 368px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.left,
+.right {
+  flex: 1 1 45%;
+  min-width: 280px;
+}
+
+h2 {
+  font-size: 22px;
+  color:#404040;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+h3{
+  font-size: 14px;
+  font-weight: 600;
+  color:#404040;
+  margin-bottom: 8px;
+  padding-left: 10px;
+}
+
+h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color:#7C7C7C;
+  margin-bottom: 8px;
+}
+
+p {
+  font-size: 12px;
+  font-weight: 400;
+  color: #7C7C7C;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  padding-left: 10px;
+}
+
+.reason-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color:#404040;
+  padding-left: 10px;
+}
+
+.reason-option input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #444;
+  border-radius: 50%;
+  background-color: #ffffff;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.reason-option input:checked {
+  background-color:#47B05A;
+  border-color:#47B05A;
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
+textarea {
+  width: 100%;
+  height: 140px;
+  padding: 10px;
+  font-size: 12px;
+  color: #333;
+  border: 1px solid #444;
+  border-radius: 6px;
+  resize: none;
+  margin-bottom: 16px;
+}
+
+.confirm-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color:#47B05A;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-btn:disabled {
+  background-color:#5C5C5C80;
+  cursor: not-allowed;
+}
+
+.note {
+  font-size: 10px;
+  color:#878787;
+  margin-top: 10px;
+}
+
+.account-deletion-dialog {
+  position: absolute;
+  top: 125px;
+  left: 30px;
+  width: 340px;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 340;
+  gap: 24px;
+  opacity: 1;
+}
+
+.cancel-btn {
+  margin-right: 10px;
+  background:#FFFCF7;
+  color:#101010;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.account-deletion-dialog .confirm-btn {
+  background-color: #4caf50;
+}
+
+/* Back button */
+.back-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.back-button:hover {
+  color: #4caf50;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .account-deletion-container {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .left,
+  .right {
+    flex: 1 1 100%;
+  }
+}
+/* Place the back button at the bottom left */
+.back-button.bottom-left {
+  position: absolute;
+  bottom: 0px;
+  left: 15px;
+}
+/* Global Back Button at Bottom Left */
+.global-back-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 999;
+}
+
+.global-back-button:hover {
+  color: #4caf50;
+}
+.account-deletion-dialog {
+  position: fixed; /* fixed for overlay */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 20px;
+  width: 300px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dialog-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color:#101010;
+}
+.close-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 400;
+  color: #111;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0px;
+}
+
+.close-btn:hover {
+  background: #f5f5f5;
+}
+
+.account-deletion-dialog p {
+  font-size: 14px;
+  color:#878787;
+  margin-bottom: 20px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-btn {
+  flex: 1;
+  margin-right: 10px;
+  background:  #FFFCF7;
+  color:#101010;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancel-btn:hover {
+  background: #f2f2f2;
+}
+
+.confirm-btn.red {
+  flex: 1;
+  background:#E52027;
+  color:#FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.confirm-btn.red:hover {
+  background: #c62828;
+}

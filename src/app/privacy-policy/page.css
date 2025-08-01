@@ -1,0 +1,8 @@
+.privacy-main {
+  min-height: 100vh;
+}
+
+.privacy-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: bold;
+} 

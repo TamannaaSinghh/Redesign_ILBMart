@@ -1,0 +1,8 @@
+.terms-main {
+  min-height: 100vh;
+}
+
+.terms-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: bold;
+} 

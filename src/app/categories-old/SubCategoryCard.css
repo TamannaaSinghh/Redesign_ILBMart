@@ -1,0 +1,26 @@
+.subcategorycard-root {
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.subcategorycard-root:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+.subcategorycard-img-wrapper {
+  height: 10rem;
+  background: #f3f4f6;
+  position: relative;
+}
+.subcategorycard-img {
+  opacity: 0.7;
+}
+.subcategorycard-content {
+  padding: 1rem;
+}
+.subcategorycard-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #1f2937;
+} 

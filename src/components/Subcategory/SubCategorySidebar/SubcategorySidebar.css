@@ -1,0 +1,40 @@
+.sidebar-container {
+  width: 220px;
+  background-color: white;
+  height: 100vh;
+  border-right: 1px solid #e8e8e8;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display:inline-block;
+}
+
+
+
+@media (max-width: 426px) {
+  .sidebar-container {
+    display: flex;
+    flex-direction: row;
+    width: 98vw;
+    margin-left: -10px;
+    height: 90px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    /* Hide scrollbar for vertical, show for horizontal */
+    scrollbar-width: thin;
+    scrollbar-color: #aaa transparent;
+  }
+}
+
+.sidebar-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-container::-webkit-scrollbar-thumb {
+  background-color: rgb(170, 170, 170);
+  border-radius: 5px;
+}
