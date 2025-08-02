@@ -56,16 +56,16 @@ export class NavigationOptimizer {
         optimisticUpdate();
       }
 
-      // Navigate with router
-      if (this.router) {
-        this.router.push(href);
-      } else {
-        // Fallback to window.location if router is not available
+      // Use window.location for more reliable navigation during development
+      if (typeof window !== 'undefined') {
         window.location.href = href;
       }
     } catch (error) {
-      console.warn('Navigation failed, using fallback:', href, error);
-      window.location.href = href;
+      console.warn('Navigation failed:', href, error);
+      // Ultimate fallback
+      if (typeof window !== 'undefined') {
+        window.location.href = href;
+      }
     }
   }
 
