@@ -167,13 +167,23 @@ export const navigationOptimizer = NavigationOptimizer.getInstance();
 
 // Hook for using navigation optimizer
 export function useInstantNavigation() {
-  const router = typeof window !== 'undefined' ? require('next/navigation').useRouter() : null;
-  
+  const [router, setRouter] = React.useState<any>(null);
+
   React.useEffect(() => {
-    if (router) {
-      navigationOptimizer.setRouter(router);
+    if (typeof window !== 'undefined') {
+      import('next/navigation').then(({ useRouter }) => {
+        try {
+          const routerInstance = useRouter();
+          setRouter(routerInstance);
+          navigationOptimizer.setRouter(routerInstance);
+        } catch (error) {
+          console.warn('Router not available, using fallback navigation');
+        }
+      }).catch(() => {
+        console.warn('Failed to load router, using fallback navigation');
+      });
     }
-  }, [router]);
+  }, []);
 
   return {
     navigateInstant: navigationOptimizer.navigateInstant.bind(navigationOptimizer),
