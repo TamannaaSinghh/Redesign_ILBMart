@@ -9,7 +9,7 @@ import { LocationProvider } from "@/components/context/LocationContext";
 import { AuthProvider } from "@/components/context/AuthContext";
 import { ThemeProvider } from "@/components/context/ThemeContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import LoadingOverlay from "@/components/ui/LoadingOverlay";
+import PerformanceMonitor from "@/components/ui/PerformanceMonitor";
 
 import "@/lib/fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
