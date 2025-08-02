@@ -92,6 +92,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  const handleImageError = () => {
+    if (!imageError) {
+      setImageError(true);
+      // Try fallback image first
+      const fallback = getFallbackImage(product.title);
+      setImageSrc(fallback);
+    } else {
+      // If fallback also fails, use default
+      setImageSrc("/assets/images/default-img.png");
+    }
+  };
+
   const discount = product.originalPrice && product.originalPrice > product.price
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : product.discount || 0;
