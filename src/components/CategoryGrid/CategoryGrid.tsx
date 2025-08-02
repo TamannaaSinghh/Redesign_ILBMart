@@ -116,10 +116,11 @@ const CategoryGrid: React.FC = () => {
             <div
               key={category.id}
               className={styles.categoryCard}
-              onClick={() => handleCategoryClick(category.id)}
-              style={{ 
+              onClick={handleCategoryClick(`/categories/${category.id}`)}
+              onMouseEnter={() => hoverPrefetch(`/categories/${category.id}`)}
+              style={{
                 backgroundColor: category.bgColor,
-                animationDelay: `${index * 100}ms` 
+                animationDelay: `${index * 50}ms`
               }}
             >
               <div className={styles.categoryImageContainer}>
