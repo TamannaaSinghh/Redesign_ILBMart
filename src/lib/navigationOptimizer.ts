@@ -36,7 +36,9 @@ export class NavigationOptimizer {
   preloadRoute(href: string) {
     if (this.preloadedRoutes.has(href)) return;
 
-    if (this.router && this.router.prefetch) {
+    // Disable prefetching to prevent fetch errors in the current environment
+    // Can be re-enabled later when server configuration is stable
+    if (false && this.router && this.router.prefetch) {
       try {
         this.router.prefetch(href);
         this.preloadedRoutes.add(href);
