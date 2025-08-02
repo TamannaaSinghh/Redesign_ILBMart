@@ -287,9 +287,9 @@ const CategoriesPage: React.FC = () => {
 
         {/* Back to Home */}
         <div className="categories-footer">
-          <button 
+          <button
             className="back-home-btn"
-            onClick={optimizeClick(() => navigateInstant("/"))}
+            onClick={() => navigate("/")}
           >
             <span className="material-symbols-outlined">home</span>
             Back to Home
