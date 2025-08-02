@@ -20,6 +20,7 @@ import { useLocation } from "@/components/context/LocationContext";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import LoginModal from "@/components/Login/LoginModal/LoginModal";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import "./Header.css";
 import MobileHeader from "./MobileHeader";
 
