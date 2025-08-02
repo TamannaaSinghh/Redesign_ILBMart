@@ -8,6 +8,7 @@ import ImagePreloader from "@/components/ImagePreloader";
 export default function Home() {
   return (
     <main>
+      <ImagePreloader />
       <BannerSlider />
       <CategoryGrid />
       <HomeClient />
