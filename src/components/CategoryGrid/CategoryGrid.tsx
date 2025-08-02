@@ -80,15 +80,24 @@ const categoryData = [
 ];
 
 const CategoryGrid: React.FC = () => {
-  const router = useRouter();
+  const { createOptimizedHandler, prefetchRoute } = useInstantNavigation();
+  const hoverPrefetch = useHoverPrefetch();
 
-  const handleCategoryClick = (categoryId: string) => {
-    router.push(`/categories/${categoryId}`);
-  };
+  // Preload all category images for instant display
+  const categoryImages = categoryData.map(cat => cat.image);
+  useImagePreloader(categoryImages);
 
-  const handleViewAllClick = () => {
-    router.push("/categories");
-  };
+  // Prefetch critical routes on component mount
+  useEffect(() => {
+    // Prefetch categories page and first few category pages
+    prefetchRoute('/categories');
+    categoryData.slice(0, 4).forEach(category => {
+      prefetchRoute(`/categories/${category.id}`);
+    });
+  }, [prefetchRoute]);
+
+  const handleCategoryClick = createOptimizedHandler;
+  const handleViewAllClick = createOptimizedHandler('/categories');
 
   return (
     <section className={styles.categorySection}>
