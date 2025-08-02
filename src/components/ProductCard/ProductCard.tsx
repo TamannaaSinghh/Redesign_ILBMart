@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useInstantNavigation } from "@/lib/navigationOptimizer";
+// Removed navigation optimizer to avoid fetch errors
 import { getProductImage, getFallbackImage } from "@/lib/productImages";
 import { getEnhancedImageUrl } from "@/lib/updateProductImages";
 
