@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { getProductById } from "@/lib/mockData";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
-import { useInstantNavigation } from "@/lib/navigationOptimizer";
+import { useSimpleNavigation } from "@/lib/simpleNavigation";
 import { getProductImage } from "@/lib/imageUrls";
 import "./product-detail.css";
 
