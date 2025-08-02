@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useInstantNavigation } from "@/lib/navigationOptimizer";
 import { getProductImage, getFallbackImage } from "@/lib/productImages";
+import { getEnhancedImageUrl } from "@/lib/updateProductImages";
 
 export interface ProductCardData {
   id: string;
