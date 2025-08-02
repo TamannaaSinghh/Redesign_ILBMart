@@ -151,12 +151,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="product-image">
         <div className="image-container">
           <img
-            src={product.imageUrl || "/assets/images/default-img.png"}
+            src={imageSrc}
             alt={product.title}
             loading="lazy"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = "/assets/images/default-img.png";
-            }}
+            onError={handleImageError}
+            className={`product-img ${imageError ? 'fallback-image' : ''}`}
           />
           {product.outOfStock && (
             <div className="out-of-stock-overlay">
