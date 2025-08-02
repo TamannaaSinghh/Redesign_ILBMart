@@ -53,7 +53,7 @@ export const productDatabase: Product[] = [
     brand: "Amul",
     description: "Premium quality salted butter made from fresh cream.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Amul Salted Butter" }
+      { id: "1", url: getProductImage("dairy-003", "Amul Butter - Salted", "butter"), alt: "Amul Salted Butter" }
     ],
     variants: [
       { id: "1", size: "100g", price: 62, unit: "g" },
