@@ -74,7 +74,7 @@ export const productDatabase: Product[] = [
     brand: "Nandini",
     description: "Fresh and creamy curd made from pure milk.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Nandini Fresh Curd" }
+      { id: "1", url: getProductImage("dairy-004", "Nandini Fresh Curd", "curd"), alt: "Nandini Fresh Curd" }
     ],
     variants: [
       { id: "1", size: "415g", price: 28, unit: "g" },
