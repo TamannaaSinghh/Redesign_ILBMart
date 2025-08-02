@@ -211,6 +211,11 @@ const Header: React.FC = () => {
 
         {/* Navigation */}
         <nav className="header-nav">
+          {/* Theme Toggle */}
+          <div className="nav-item theme">
+            <ThemeToggle size="sm" showLabel={false} />
+          </div>
+
           {/* Wishlist Button */}
           <Link href="/wishlist" className="nav-item wishlist">
             <div className="icon-wrapper">
