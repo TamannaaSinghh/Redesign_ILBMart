@@ -283,6 +283,21 @@
   object-fit: cover;
 }
 
+/* Theme toggle in navigation */
+.nav-item.theme {
+  padding: var(--space-xs);
+}
+
+.nav-item.theme .theme-toggle {
+  padding: var(--space-xs);
+  min-width: auto;
+  font-size: var(--font-xs);
+}
+
+.nav-item.theme .theme-toggle-icon {
+  font-size: 18px;
+}
+
 /* ===============================================
    MOBILE HEADER
    =============================================== */
