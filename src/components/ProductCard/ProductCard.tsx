@@ -48,26 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return getEnhancedImageUrl(product);
   });
 
-  const handleCardClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    // Add instant visual feedback
-    const target = e.currentTarget as HTMLElement;
-    target.style.transform = 'scale(0.98)';
-    target.style.transition = 'transform 0.1s ease';
-
-    setTimeout(() => {
-      target.style.transform = 'scale(1)';
-    }, 100);
-
-    // Use simple router navigation
-    try {
-      router.push(`/product/${product.id}`);
-    } catch (error) {
-      // Fallback to window.location if router fails
-      window.location.href = `/product/${product.id}`;
-    }
-  };
+  const handleCardClick = createOptimizedClickHandler(`/product/${product.id}`, router);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.stopPropagation();
