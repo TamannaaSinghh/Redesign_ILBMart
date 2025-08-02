@@ -66,21 +66,23 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        <TooltipProvider>
-          <CartProvider>
-            <AuthProvider>
-              <LocationProvider>
-                <Header />
-                <main>
-                  {/* Main content goes here */}
-                  {children}
-                </main>
+        <ThemeProvider defaultTheme="system" storageKey="ilb-theme">
+          <TooltipProvider>
+            <CartProvider>
+              <AuthProvider>
+                <LocationProvider>
+                  <Header />
+                  <main>
+                    {/* Main content goes here */}
+                    {children}
+                  </main>
 
-                <Footer />
-              </LocationProvider>
-            </AuthProvider>
-          </CartProvider>
-        </TooltipProvider>
+                  <Footer />
+                </LocationProvider>
+              </AuthProvider>
+            </CartProvider>
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
