@@ -42,16 +42,32 @@ const ProductCard: React.FC<ProductCardProps> = ({
   className = "",
 }) => {
   const router = useRouter();
-  const { navigateInstant, optimizeClick } = useInstantNavigation();
   const [imageError, setImageError] = useState(false);
   const [imageSrc, setImageSrc] = useState(() => {
     // Use enhanced image system for better product images
     return getEnhancedImageUrl(product);
   });
 
-  const handleCardClick = optimizeClick(() => {
-    navigateInstant(`/product/${product.id}`);
-  });
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    // Add instant visual feedback
+    const target = e.currentTarget as HTMLElement;
+    target.style.transform = 'scale(0.98)';
+    target.style.transition = 'transform 0.1s ease';
+
+    setTimeout(() => {
+      target.style.transform = 'scale(1)';
+    }, 100);
+
+    // Use simple router navigation
+    try {
+      router.push(`/product/${product.id}`);
+    } catch (error) {
+      // Fallback to window.location if router fails
+      window.location.href = `/product/${product.id}`;
+    }
+  };
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.stopPropagation();
