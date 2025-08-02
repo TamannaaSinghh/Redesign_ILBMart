@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import ProductGrid from "@/components/ProductCard/ProductGrid";
-import { ProductCardData } from "@/components/ProductCard/ProductCard";
 import { useWishlist } from "@/hooks/useWishlist";
 import { useCart } from "@/hooks/useCart";
+import { useInstantNavigation } from "@/lib/performanceOptimizer";
+import { getEnhancedImageUrl } from "@/lib/updateProductImages";
 import "./wishlist.css";
 
 const WishlistPage: React.FC = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const { createOptimizedHandler } = useInstantNavigation();
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [sortBy, setSortBy] = useState("recently-added");
 
@@ -17,37 +17,21 @@ const WishlistPage: React.FC = () => {
   const { wishlistItems, removeFromWishlist, clearWishlist } = useWishlist();
   const { addToCart, isInCart } = useCart();
 
-  // Convert wishlist items to ProductCardData format
-  const wishlistProducts: ProductCardData[] = wishlistItems.map(item => ({
-    id: item.id,
-    imageUrl: item.imageUrl,
-    title: item.name,
-    brand: item.brand || "",
-    tags: [item.unit || ""].filter(Boolean),
-    price: item.price,
-    originalPrice: item.originalPrice,
-    rating: 4, // Default rating
-    isWishlisted: true,
-    isAddedToCart: isInCart(item.id),
-    unit: item.unit,
-    outOfStock: false,
-  }));
-
   // Sort wishlist items
   const sortedWishlistItems = useMemo(() => {
-    const items = [...wishlistProducts];
+    const items = [...wishlistItems];
     switch (sortBy) {
       case "price-low":
         return items.sort((a, b) => a.price - b.price);
       case "price-high":
         return items.sort((a, b) => b.price - a.price);
       case "name":
-        return items.sort((a, b) => a.title.localeCompare(b.title));
+        return items.sort((a, b) => a.name.localeCompare(b.name));
       case "recently-added":
       default:
-        return items; // Keep original order for recently added
+        return items;
     }
-  }, [wishlistProducts, sortBy]);
+  }, [wishlistItems, sortBy]);
 
   const handleRemoveFromWishlist = (id: string) => {
     removeFromWishlist(id);
@@ -91,11 +75,6 @@ const WishlistPage: React.FC = () => {
     }
   };
 
-  const handleRemoveSelected = () => {
-    selectedItems.forEach(id => removeFromWishlist(id));
-    setSelectedItems(new Set());
-  };
-
   const handleAddSelectedToCart = () => {
     selectedItems.forEach(id => {
       const item = wishlistItems.find(item => item.id === id);
@@ -112,37 +91,23 @@ const WishlistPage: React.FC = () => {
     setSelectedItems(new Set());
   };
 
-  const handleContinueShopping = () => {
-    router.push("/");
-  };
-
-  const handleShareWishlist = () => {
-    // TODO: Implement share functionality
-    navigator.clipboard.writeText(window.location.href);
-    alert("Wishlist link copied to clipboard!");
-  };
-
   const totalValue = wishlistItems.reduce((sum, item) => sum + item.price, 0);
-  const availableItems = wishlistItems; // All items are available since WishlistItem doesn't have outOfStock
 
   if (wishlistItems.length === 0) {
     return (
       <div className="wishlist-page">
-        <div className="container">
+        <div className="wishlist-container">
           <div className="wishlist-empty">
             <div className="empty-state">
-              <span className="material-symbols-outlined empty-icon">
-                favorite_border
-              </span>
+              <div className="empty-icon">♡</div>
               <h1 className="empty-title">Your Wishlist is Empty</h1>
               <p className="empty-description">
-                Discover products you love and add them to your wishlist to save for later.
+                Save items you love to your wishlist and shop them later.
               </p>
               <button
-                className="btn btn-primary continue-shopping-button"
-                onClick={handleContinueShopping}
+                className="btn-primary"
+                onClick={createOptimizedHandler("/")}
               >
-                <span className="material-symbols-outlined">shopping_cart</span>
                 Start Shopping
               </button>
             </div>
@@ -154,198 +119,173 @@ const WishlistPage: React.FC = () => {
 
   return (
     <div className="wishlist-page">
-      <div className="container">
-        {/* Wishlist Header */}
+      <div className="wishlist-container">
+        {/* Header */}
         <div className="wishlist-header">
-          <div className="wishlist-title-section">
+          <div className="header-content">
             <h1 className="wishlist-title">
-              <span className="material-symbols-outlined">favorite</span>
+              <span className="heart-icon">♡</span>
               My Wishlist
             </h1>
-            <p className="wishlist-subtitle">
-              {wishlistItems.length} item{wishlistItems.length !== 1 ? "s" : ""} • 
-              Total Value: ₹{totalValue.toFixed(2)}
+            <p className="wishlist-count">
+              {wishlistItems.length} {wishlistItems.length === 1 ? 'item' : 'items'}
             </p>
           </div>
-
-          <div className="wishlist-actions">
+          <div className="header-actions">
             <button
-              className="btn btn-outline share-button"
-              onClick={handleShareWishlist}
+              className="btn-secondary"
+              onClick={createOptimizedHandler("/")}
             >
-              <span className="material-symbols-outlined">share</span>
-              Share
-            </button>
-            <button
-              className="btn btn-primary continue-shopping-button"
-              onClick={handleContinueShopping}
-            >
-              <span className="material-symbols-outlined">add_shopping_cart</span>
               Continue Shopping
             </button>
+            {selectedItems.size > 0 && (
+              <button
+                className="btn-primary"
+                onClick={handleAddSelectedToCart}
+              >
+                Add to Cart ({selectedItems.size})
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Wishlist Controls */}
+        {/* Controls */}
         <div className="wishlist-controls">
-          <div className="selection-controls">
-            <label className="select-all-checkbox">
+          <div className="controls-left">
+            <label className="select-all">
               <input
                 type="checkbox"
                 checked={selectedItems.size === wishlistItems.length && wishlistItems.length > 0}
                 onChange={handleSelectAll}
               />
-              <span>
-                Select All ({selectedItems.size} of {wishlistItems.length})
-              </span>
+              <span>Select All</span>
             </label>
-
             {selectedItems.size > 0 && (
-              <div className="bulk-actions">
-                <button
-                  className="btn btn-secondary"
-                  onClick={handleAddSelectedToCart}
-                  disabled={selectedItems.size === 0}
-                >
-                  <span className="material-symbols-outlined">add_shopping_cart</span>
-                  Add to Cart ({selectedItems.size})
-                </button>
-                <button
-                  className="btn btn-outline remove-button"
-                  onClick={handleRemoveSelected}
-                >
-                  <span className="material-symbols-outlined">delete</span>
-                  Remove ({selectedItems.size})
-                </button>
-              </div>
+              <span className="selected-count">
+                {selectedItems.size} selected
+              </span>
             )}
           </div>
-
-          <div className="sort-controls">
-            <label htmlFor="sort-select" className="sort-label">Sort by:</label>
+          
+          <div className="controls-right">
             <select
-              id="sort-select"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="sort-select"
             >
               <option value="recently-added">Recently Added</option>
-              <option value="name">Name</option>
+              <option value="name">Name A-Z</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
             </select>
           </div>
         </div>
 
-
-
-        {/* Wishlist Items */}
-        <div className="wishlist-content">
-          <div className="wishlist-items">
-            {sortedWishlistItems.map((item) => (
-              <div key={item.id} className="wishlist-item">
-                <div className="item-selection">
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.has(item.id)}
-                    onChange={() => handleSelectItem(item.id)}
-                    className="item-checkbox"
+        {/* Wishlist Grid */}
+        <div className="wishlist-grid">
+          {sortedWishlistItems.map((item) => (
+            <div key={item.id} className="wishlist-card">
+              <div className="card-checkbox">
+                <input
+                  type="checkbox"
+                  checked={selectedItems.has(item.id)}
+                  onChange={() => handleSelectItem(item.id)}
+                />
+              </div>
+              
+              <div 
+                className="card-content"
+                onClick={createOptimizedHandler(`/product/${item.id}`)}
+              >
+                <div className="card-image">
+                  <img
+                    src={getEnhancedImageUrl({
+                      id: item.id,
+                      title: item.name,
+                      imageUrl: item.imageUrl,
+                      brand: item.brand
+                    })}
+                    alt={item.name}
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/assets/images/default-img.png";
+                    }}
                   />
                 </div>
                 
-                <div className="item-card">
-                  <ProductGrid
-                    products={[item]}
-                    onWishlistToggle={handleRemoveFromWishlist}
-                    onAddToCart={handleAddToCart}
-                    showWishlist={true}
-                    showAddToCart={true}
-                    variant="detailed"
-                  />
-                </div>
-
-                <div className="item-actions">
-                  <button
-                    className="action-button remove-button"
-                    onClick={() => handleRemoveFromWishlist(item.id)}
-                    title="Remove from wishlist"
-                  >
-                    <span className="material-symbols-outlined">delete</span>
-                  </button>
+                <div className="card-info">
+                  <h3 className="card-title">{item.name}</h3>
+                  {item.brand && <p className="card-brand">{item.brand}</p>}
+                  <div className="card-price">
+                    <span className="current-price">₹{item.price}</span>
+                    {item.originalPrice && item.originalPrice > item.price && (
+                      <span className="original-price">₹{item.originalPrice}</span>
+                    )}
+                    {item.unit && <span className="unit">/{item.unit}</span>}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
 
-          {/* Wishlist Summary */}
+              <div className="card-actions">
+                <button
+                  className="action-btn add-to-cart"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToCart(item.id);
+                  }}
+                  disabled={isInCart(item.id)}
+                >
+                  {isInCart(item.id) ? '✓' : '+'}
+                </button>
+                <button
+                  className="action-btn remove"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemoveFromWishlist(item.id);
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Summary */}
+        {wishlistItems.length > 0 && (
           <div className="wishlist-summary">
-            <div className="summary-card">
-              <h3 className="summary-title">Wishlist Summary</h3>
-              
+            <div className="summary-content">
               <div className="summary-stats">
-                <div className="stat-item">
-                  <span className="stat-label">Total Items:</span>
-                  <span className="stat-value">{wishlistItems.length}</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-label">Available:</span>
-                  <span className="stat-value">{availableItems.length}</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-label">Total Value:</span>
-                  <span className="stat-value">₹{totalValue.toFixed(2)}</span>
-                </div>
+                <span className="stat">
+                  <strong>{wishlistItems.length}</strong> items
+                </span>
+                <span className="stat">
+                  Total: <strong>₹{totalValue.toFixed(2)}</strong>
+                </span>
               </div>
-
               <div className="summary-actions">
                 <button
-                  className="btn btn-primary full-width"
-                  onClick={() => handleAddSelectedToCart()}
-                  disabled={availableItems.length === 0}
+                  className="btn-outline"
+                  onClick={() => {
+                    if (confirm('Remove all items from wishlist?')) {
+                      clearWishlist();
+                    }
+                  }}
                 >
-                  <span className="material-symbols-outlined">add_shopping_cart</span>
-                  Add All Available to Cart
-                </button>
-                
-                <button
-                  className="btn btn-outline full-width"
-                  onClick={handleContinueShopping}
-                >
-                  <span className="material-symbols-outlined">storefront</span>
-                  Continue Shopping
-                </button>
-              </div>
-            </div>
-
-            {/* Quick Categories */}
-            <div className="quick-categories">
-              <h4>Quick Shop</h4>
-              <div className="category-links">
-                <button
-                  className="category-link"
-                  onClick={() => router.push("/categories")}
-                >
-                  <span className="material-symbols-outlined">category</span>
-                  All Categories
+                  Clear All
                 </button>
                 <button
-                  className="category-link"
-                  onClick={() => router.push("/search?q=offers")}
+                  className="btn-primary"
+                  onClick={() => {
+                    wishlistItems.forEach(item => handleAddToCart(item.id));
+                  }}
                 >
-                  <span className="material-symbols-outlined">local_offer</span>
-                  Special Offers
-                </button>
-                <button
-                  className="category-link"
-                  onClick={() => router.push("/search?q=new")}
-                >
-                  <span className="material-symbols-outlined">new_releases</span>
-                  New Arrivals
+                  Add All to Cart
                 </button>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
