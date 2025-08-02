@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useInstantNavigation } from "@/lib/navigationOptimizer";
+import { getProductImage, getFallbackImage } from "@/lib/productImages";
 
 export interface ProductCardData {
   id: string;
