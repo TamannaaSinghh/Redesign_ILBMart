@@ -79,6 +79,7 @@ export default function RootLayout({
                   </main>
 
                   <Footer />
+                  <PerformanceMonitor />
                 </LocationProvider>
               </AuthProvider>
             </CartProvider>
