@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useInstantNavigation } from "@/lib/navigationOptimizer";
+import { useSimpleNavigation } from "@/lib/simpleNavigation";
 import "./categories.css";
 
 // Extended categories data for the View All page
