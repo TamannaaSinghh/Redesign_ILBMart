@@ -24,7 +24,7 @@ export const productDatabase: Product[] = [
     tags: ["Fresh", "Daily Use", "Protein Rich"],
     benefits: ["Rich in calcium", "High protein content", "Fresh daily delivery", "No preservatives"],
     nutritionalInfo: { fat: "3.2g", protein: "3.5g", carbs: "4.7g", calories: "60" },
-    storageInstructions: "Store in refrigerator below 4��C",
+    storageInstructions: "Store in refrigerator below 4°C",
     expiryInfo: "Best before 3 days from packaging date"
   },
   {
@@ -33,7 +33,7 @@ export const productDatabase: Product[] = [
     brand: "Britannia",
     description: "Soft and fresh white bread, perfect for breakfast and snacks.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Britannia White Bread" }
+      { id: "1", url: getProductImage("dairy-002", "Britannia Bread - White", "bread"), alt: "Britannia White Bread" }
     ],
     variants: [
       { id: "1", size: "400g", price: 32, originalPrice: 35, unit: "g" }
