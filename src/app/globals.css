@@ -917,6 +917,91 @@ body {
 }
 
 /* ===============================================
+   THEME TOGGLE COMPONENT
+   =============================================== */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-size: var(--font-sm);
+  font-weight: var(--font-medium);
+}
+
+.theme-toggle:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+.theme-toggle-icon {
+  font-size: 16px;
+  transition: transform var(--transition-normal);
+}
+
+.theme-toggle:hover .theme-toggle-icon {
+  transform: rotate(15deg);
+}
+
+.theme-toggle-label {
+  font-size: var(--font-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Theme toggle sizes */
+.theme-toggle--sm {
+  padding: var(--space-xs);
+  font-size: var(--font-xs);
+}
+
+.theme-toggle--sm .theme-toggle-icon {
+  font-size: 14px;
+}
+
+.theme-toggle--md {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-sm);
+}
+
+.theme-toggle--md .theme-toggle-icon {
+  font-size: 16px;
+}
+
+.theme-toggle--lg {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-md);
+}
+
+.theme-toggle--lg .theme-toggle-icon {
+  font-size: 20px;
+}
+
+/* Mobile responsive theme toggle */
+@media (max-width: 768px) {
+  .theme-toggle-label {
+    display: none;
+  }
+
+  .theme-toggle {
+    padding: var(--space-xs);
+    min-width: 36px;
+    justify-content: center;
+  }
+}
+
+/* ===============================================
    PRINT STYLES
    =============================================== */
 
@@ -927,8 +1012,12 @@ body {
     box-shadow: none !important;
     text-shadow: none !important;
   }
-  
+
   .hidden-print {
+    display: none !important;
+  }
+
+  .theme-toggle {
     display: none !important;
   }
 }
