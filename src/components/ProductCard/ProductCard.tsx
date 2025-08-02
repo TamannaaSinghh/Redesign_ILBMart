@@ -42,6 +42,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const router = useRouter();
   const { navigateInstant, optimizeClick } = useInstantNavigation();
+  const [imageError, setImageError] = useState(false);
+  const [imageSrc, setImageSrc] = useState(() => {
+    // Prefer product's imageUrl, fallback to enhanced image system
+    return product.imageUrl && product.imageUrl !== "/assets/images/default-img.png"
+      ? product.imageUrl
+      : getProductImage(product.id, product.title, product.brand);
+  });
 
   const handleCardClick = optimizeClick(() => {
     navigateInstant(`/product/${product.id}`);
