@@ -115,7 +115,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   `.trim();
 
   return (
-    <div className={cardClasses} onClick={handleCardClick}>
+    <div
+      className={cardClasses}
+      onClick={handleCardClick}
+      onMouseEnter={() => hoverPrefetch(`/product/${product.id}`)}
+    >
       {/* Wishlist Button */}
       {showWishlist && (
         <button
