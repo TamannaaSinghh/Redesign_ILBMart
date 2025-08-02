@@ -7,6 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import { CartProvider } from "@/components/context/CartContext";
 import { LocationProvider } from "@/components/context/LocationContext";
 import { AuthProvider } from "@/components/context/AuthContext";
+import { ThemeProvider } from "@/components/context/ThemeContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 import "@/lib/fontawesome";
