@@ -48,9 +48,9 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
             </div>
             <h1>Product Not Found</h1>
             <p>The product you're looking for doesn't exist or has been removed.</p>
-            <button 
+            <button
               className="back-btn"
-              onClick={optimizeClick(() => navigateInstant("/"))}
+              onClick={() => navigate("/")}
             >
               <span className="material-symbols-outlined">home</span>
               Back to Home
