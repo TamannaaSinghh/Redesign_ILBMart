@@ -162,9 +162,9 @@ const CategoriesPage: React.FC = () => {
     }
   }, [searchQuery, sortBy]);
 
-  const handleCategoryClick = optimizeClick((categoryId: string) => {
-    navigateInstant(`/categories/${categoryId}`);
-  });
+  const handleCategoryClick = (categoryId: string) => {
+    navigate(`/categories/${categoryId}`);
+  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
