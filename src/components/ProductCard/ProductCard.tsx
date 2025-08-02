@@ -42,13 +42,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
   className = "",
 }) => {
   const router = useRouter();
+  const { createOptimizedHandler } = useInstantNavigation();
+  const hoverPrefetch = useHoverPrefetch();
   const [imageError, setImageError] = useState(false);
   const [imageSrc, setImageSrc] = useState(() => {
     // Use enhanced image system for better product images
     return getEnhancedImageUrl(product);
   });
 
-  const handleCardClick = createOptimizedClickHandler(`/product/${product.id}`, router);
+  const handleCardClick = createOptimizedHandler(`/product/${product.id}`);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.stopPropagation();
