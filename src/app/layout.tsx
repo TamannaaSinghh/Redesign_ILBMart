@@ -81,6 +81,7 @@ export default function RootLayout({
 
                   <Footer />
                   <PerformanceMonitor />
+                  <GlobalPerformanceOptimizer />
                 </LocationProvider>
               </AuthProvider>
             </CartProvider>
