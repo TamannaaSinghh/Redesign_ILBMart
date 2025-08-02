@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import styles from "./CategoryGrid.module.css";
+import { useInstantNavigation, useImagePreloader, useHoverPrefetch } from "@/lib/performanceOptimizer";
 
 // Fresh category data with real images and proper structure
 const categoryData = [
