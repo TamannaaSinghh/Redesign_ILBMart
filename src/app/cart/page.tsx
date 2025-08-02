@@ -1,32 +1,38 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { getProductById } from "@/lib/productDatabase";
 import { useCart } from "@/hooks/useCart";
+import { useInstantNavigation } from "@/lib/performanceOptimizer";
+import { getEnhancedImageUrl } from "@/lib/updateProductImages";
 import "./cart.css";
 
 const CartPage: React.FC = () => {
   const router = useRouter();
-  const { cartItems, updateQuantity, removeFromCart, clearCart, totalPrice, isLoading } = useCart();
+  const { createOptimizedHandler } = useInstantNavigation();
+  const { cartItems, updateQuantity, removeFromCart, clearCart, totalPrice, totalItems, isLoading } = useCart();
 
   // Calculate totals
   const subtotal = totalPrice;
   const deliveryFee = subtotal >= 299 ? 0 : 40;
   const total = subtotal + deliveryFee;
 
-  const handleCheckout = () => {
-    // TODO: Implement checkout functionality
-    alert("Checkout functionality will be implemented soon!");
+  const handleQuantityChange = (productId: string, newQuantity: number) => {
+    // Auto-delete when quantity reaches 0
+    if (newQuantity <= 0) {
+      removeFromCart(productId);
+    } else {
+      updateQuantity(productId, newQuantity);
+    }
   };
 
-  const continueShopping = () => {
-    router.push("/");
+  const handleCheckout = () => {
+    router.push("/checkout");
   };
 
   if (isLoading) {
     return (
       <div className="cart-page">
-        <div className="container">
+        <div className="cart-container">
           <div className="loading-state">
             <div className="spinner"></div>
             <p>Loading cart...</p>
@@ -39,23 +45,19 @@ const CartPage: React.FC = () => {
   if (cartItems.length === 0) {
     return (
       <div className="cart-page">
-        <div className="container">
-          <div className="empty-cart">
-            <div className="empty-cart-content">
-              <span className="material-symbols-outlined empty-cart-icon">
-                shopping_cart
-              </span>
-              <h1 className="empty-cart-title">Your Cart is Empty</h1>
-              <p className="empty-cart-description">
-                Looks like you haven't added any items to your cart yet.
-                Start shopping to fill it up!
+        <div className="cart-container">
+          <div className="cart-empty">
+            <div className="empty-state">
+              <div className="empty-icon">🛒</div>
+              <h1 className="empty-title">Your Cart is Empty</h1>
+              <p className="empty-description">
+                Add some products to get started!
               </p>
               <button
-                className="btn btn-primary continue-shopping-btn"
-                onClick={continueShopping}
+                className="btn-primary"
+                onClick={createOptimizedHandler("/")}
               >
-                <span className="material-symbols-outlined">storefront</span>
-                Continue Shopping
+                Start Shopping
               </button>
             </div>
           </div>
@@ -66,168 +68,160 @@ const CartPage: React.FC = () => {
 
   return (
     <div className="cart-page">
-      <div className="container">
-        {/* Cart Header */}
+      <div className="cart-container">
+        {/* Header */}
         <div className="cart-header">
-          <h1 className="cart-title">
-            <span className="material-symbols-outlined">shopping_cart</span>
-            Shopping Cart ({cartItems.length} items)
-          </h1>
+          <div className="header-content">
+            <h1 className="cart-title">
+              <span className="cart-icon">🛒</span>
+              Shopping Cart
+            </h1>
+            <p className="cart-count">
+              {totalItems} {totalItems === 1 ? 'item' : 'items'} • {cartItems.length} {cartItems.length === 1 ? 'product' : 'products'}
+            </p>
+          </div>
           <button
-            className="btn btn-outline clear-cart-btn"
-            onClick={clearCart}
+            className="btn-secondary"
+            onClick={createOptimizedHandler("/")}
           >
-            <span className="material-symbols-outlined">delete_sweep</span>
-            Clear Cart
+            Continue Shopping
           </button>
         </div>
 
         <div className="cart-content">
           {/* Cart Items */}
           <div className="cart-items">
-            <div className="cart-items-header">
-              <h2>Items in your cart</h2>
-            </div>
-
-            <div className="cart-items-list">
-              {cartItems.map((item) => (
-                <div key={item.id} className="cart-item">
-                  <div className="cart-item-image">
-                    <img
-                      src={item.imageUrl || "/assets/images/default-img.png"}
-                      alt={item.name}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/assets/images/default-img.png";
-                      }}
-                    />
-                  </div>
-
-                  <div className="cart-item-details">
-                    <div className="cart-item-info">
-                      <h3 className="cart-item-name">{item.name}</h3>
-                      <p className="cart-item-variant">{item.unit}</p>
-                    </div>
-
-                    <div className="cart-item-actions">
-                      <div className="quantity-controls">
-                        <button
-                          className="quantity-btn"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          disabled={item.quantity <= 1}
-                        >
-                          <span className="material-symbols-outlined">remove</span>
-                        </button>
-                        <span className="quantity-display">{item.quantity}</span>
-                        <button
-                          className="quantity-btn"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        >
-                          <span className="material-symbols-outlined">add</span>
-                        </button>
-                      </div>
-
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeFromCart(item.id)}
-                        title="Remove from cart"
-                      >
-                        <span className="material-symbols-outlined">delete</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="cart-item-pricing">
-                    <div className="item-price">
-                      <span className="current-price">₹{(item.price * item.quantity).toFixed(2)}</span>
-                    </div>
-                  </div>
+            {cartItems.map((item) => (
+              <div key={item.id} className="cart-item">
+                <div 
+                  className="item-image"
+                  onClick={createOptimizedHandler(`/product/${item.id}`)}
+                >
+                  <img
+                    src={getEnhancedImageUrl({
+                      id: item.id,
+                      title: item.name,
+                      imageUrl: item.imageUrl
+                    })}
+                    alt={item.name}
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/assets/images/default-img.png";
+                    }}
+                  />
                 </div>
-              ))}
-            </div>
+
+                <div className="item-details">
+                  <h3 
+                    className="item-name"
+                    onClick={createOptimizedHandler(`/product/${item.id}`)}
+                  >
+                    {item.name}
+                  </h3>
+                  {item.unit && <p className="item-unit">{item.unit}</p>}
+                  <p className="item-price">₹{item.price} each</p>
+                </div>
+
+                <div className="item-controls">
+                  <div className="quantity-control">
+                    <button
+                      className="qty-btn minus"
+                      onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                      aria-label="Decrease quantity"
+                    >
+                      −
+                    </button>
+                    <span className="qty-display">{item.quantity}</span>
+                    <button
+                      className="qty-btn plus"
+                      onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                      aria-label="Increase quantity"
+                    >
+                      +
+                    </button>
+                  </div>
+                  
+                  <div className="item-total">
+                    ₹{(item.price * item.quantity).toFixed(2)}
+                  </div>
+                  
+                  <button
+                    className="remove-btn"
+                    onClick={() => removeFromCart(item.id)}
+                    aria-label="Remove item"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Cart Summary */}
           <div className="cart-summary">
             <div className="summary-card">
               <h2 className="summary-title">Order Summary</h2>
-
-              <div className="summary-details">
-                <div className="summary-item">
-                  <span>Subtotal ({cartItems.length} items)</span>
-                  <span>₹{subtotal.toFixed(2)}</span>
-                </div>
-
-                <div className="summary-item">
-                  <span>Delivery Fee</span>
-                  <span>
-                    {deliveryFee === 0 ? (
-                      <>
-                        <span className="free-delivery">FREE</span>
-                        <span className="delivery-threshold">Orders above ₹299</span>
-                      </>
-                    ) : (
-                      `₹${deliveryFee}`
-                    )}
-                  </span>
-                </div>
-
-                {subtotal < 299 && (
-                  <div className="delivery-message">
-                    Add ₹{(299 - subtotal).toFixed(2)} more for FREE delivery
-                  </div>
-                )}
-
-                <div className="summary-divider"></div>
-
-                <div className="summary-item total">
-                  <span>Total Amount</span>
-                  <span>₹{total.toFixed(2)}</span>
-                </div>
+              
+              <div className="summary-line">
+                <span>Subtotal ({totalItems} items)</span>
+                <span>₹{subtotal.toFixed(2)}</span>
+              </div>
+              
+              <div className="summary-line">
+                <span>Delivery</span>
+                <span className={deliveryFee === 0 ? 'free-delivery' : ''}>
+                  {deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}
+                </span>
+              </div>
+              
+              {subtotal < 299 && deliveryFee > 0 && (
+                <p className="delivery-note">
+                  Add ₹{(299 - subtotal).toFixed(2)} more for FREE delivery
+                </p>
+              )}
+              
+              <div className="summary-divider"></div>
+              
+              <div className="summary-line total">
+                <span>Total</span>
+                <span>₹{total.toFixed(2)}</span>
               </div>
 
               <div className="summary-actions">
                 <button
-                  className="btn btn-primary checkout-btn"
+                  className="btn-primary checkout-btn"
                   onClick={handleCheckout}
                 >
-                  <span className="material-symbols-outlined">shopping_bag</span>
                   Proceed to Checkout
                 </button>
-
+                
                 <button
-                  className="btn btn-outline continue-btn"
-                  onClick={continueShopping}
+                  className="btn-outline clear-btn"
+                  onClick={() => {
+                    if (confirm('Remove all items from cart?')) {
+                      clearCart();
+                    }
+                  }}
                 >
-                  <span className="material-symbols-outlined">storefront</span>
-                  Continue Shopping
+                  Clear Cart
                 </button>
               </div>
             </div>
 
-            {/* Delivery Info */}
-            <div className="delivery-info-card">
-              <h3>Delivery Information</h3>
-              <div className="delivery-features">
-                <div className="delivery-feature">
-                  <span className="material-symbols-outlined">local_shipping</span>
-                  <div>
-                    <strong>Fast Delivery</strong>
-                    <span>Get your items delivered in 8-30 minutes</span>
-                  </div>
+            {/* Quick Stats */}
+            <div className="quick-stats">
+              <div className="stat">
+                <span className="stat-icon">📦</span>
+                <div>
+                  <strong>Fast Delivery</strong>
+                  <span>8-30 minutes</span>
                 </div>
-                <div className="delivery-feature">
-                  <span className="material-symbols-outlined">verified</span>
-                  <div>
-                    <strong>Quality Assured</strong>
-                    <span>Fresh and quality products guaranteed</span>
-                  </div>
-                </div>
-                <div className="delivery-feature">
-                  <span className="material-symbols-outlined">support_agent</span>
-                  <div>
-                    <strong>24/7 Support</strong>
-                    <span>Customer support available anytime</span>
-                  </div>
+              </div>
+              <div className="stat">
+                <span className="stat-icon">✅</span>
+                <div>
+                  <strong>Quality Assured</strong>
+                  <span>Fresh products</span>
                 </div>
               </div>
             </div>
