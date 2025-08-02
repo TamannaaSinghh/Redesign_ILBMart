@@ -1,4 +1,5 @@
 import { Product } from "./mockData";
+import { getProductImage } from "./productImages";
 
 // Comprehensive product database with 300+ items
 export const productDatabase: Product[] = [
