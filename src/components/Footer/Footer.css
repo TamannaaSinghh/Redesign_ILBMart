@@ -1,8 +1,8 @@
 /* Footer Container */
 .footer-container {
-    background-color: #f9f9f9;
-    border-top: 1px solid #e7e7e7;
-    color: #404040;
+    background-color: var(--background-secondary);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
     padding: 50px 0 20px;
     font-size: 14px;
     line-height: 1.6;
