@@ -95,7 +95,7 @@ export const productDatabase: Product[] = [
     brand: "Mother Dairy",
     description: "Fresh cottage cheese made from pure milk.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Mother Dairy Paneer" }
+      { id: "1", url: getProductImage("dairy-005", "Mother Dairy Paneer", "paneer"), alt: "Mother Dairy Paneer" }
     ],
     variants: [
       { id: "1", size: "200g", price: 85, unit: "g" }
