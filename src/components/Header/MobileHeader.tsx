@@ -171,6 +171,10 @@ const MobileHeader: React.FC = () => {
           </div>
 
           <div className="mobile-header-right">
+            <div className="mobile-nav-item theme">
+              <ThemeToggle size="sm" showLabel={false} />
+            </div>
+
             <Link href="/wishlist" className="mobile-nav-item wishlist">
               <div className="mobile-icon-wrapper">
                 <FontAwesomeIcon
