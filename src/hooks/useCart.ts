@@ -53,11 +53,12 @@ export const useCart = () => {
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
+    // Auto-delete when quantity reaches 0 or below
     if (quantity <= 0) {
       removeFromCart(productId);
       return;
     }
-    
+
     setCartItems(prev =>
       prev.map(item =>
         item.id === productId ? { ...item, quantity } : item
