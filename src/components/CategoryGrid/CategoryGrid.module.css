@@ -84,8 +84,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.2s ease;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 8px;
+  will-change: transform;
 }
 
 .categoryCard:hover .categoryImage {
