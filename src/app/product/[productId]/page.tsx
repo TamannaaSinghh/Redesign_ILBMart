@@ -104,11 +104,11 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
       <div className="container">
         {/* Breadcrumb */}
         <nav className="breadcrumb">
-          <button onClick={optimizeClick(() => navigateInstant("/"))}>
+          <button onClick={() => navigate("/")}>
             Home
           </button>
           <span className="breadcrumb-separator">/</span>
-          <button onClick={optimizeClick(() => navigateInstant("/categories"))}>
+          <button onClick={() => navigate("/categories")}>
             Categories
           </button>
           <span className="breadcrumb-separator">/</span>
