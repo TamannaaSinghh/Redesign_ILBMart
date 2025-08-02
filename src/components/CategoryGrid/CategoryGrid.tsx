@@ -150,9 +150,10 @@ const CategoryGrid: React.FC = () => {
 
         {/* View All Button */}
         <div className={styles.viewAllContainer}>
-          <button 
+          <button
             className={styles.viewAllButton}
             onClick={handleViewAllClick}
+            onMouseEnter={() => hoverPrefetch('/categories')}
           >
             <span>View All Categories</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
