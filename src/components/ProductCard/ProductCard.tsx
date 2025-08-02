@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getProductImage, getFallbackImage } from "@/lib/productImages";
 import { getEnhancedImageUrl } from "@/lib/updateProductImages";
-import { createOptimizedClickHandler } from "@/lib/simpleNavigation";
+import { useInstantNavigation, useHoverPrefetch } from "@/lib/performanceOptimizer";
 
 export interface ProductCardData {
   id: string;
