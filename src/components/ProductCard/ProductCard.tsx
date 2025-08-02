@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-// Removed navigation optimizer to avoid fetch errors
 import { getProductImage, getFallbackImage } from "@/lib/productImages";
 import { getEnhancedImageUrl } from "@/lib/updateProductImages";
+import { createOptimizedClickHandler } from "@/lib/simpleNavigation";
 
 export interface ProductCardData {
   id: string;
