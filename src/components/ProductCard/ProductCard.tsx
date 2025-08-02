@@ -45,10 +45,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const { navigateInstant, optimizeClick } = useInstantNavigation();
   const [imageError, setImageError] = useState(false);
   const [imageSrc, setImageSrc] = useState(() => {
-    // Prefer product's imageUrl, fallback to enhanced image system
-    return product.imageUrl && product.imageUrl !== "/assets/images/default-img.png"
-      ? product.imageUrl
-      : getProductImage(product.id, product.title, product.brand);
+    // Use enhanced image system for better product images
+    return getEnhancedImageUrl(product);
   });
 
   const handleCardClick = optimizeClick(() => {
