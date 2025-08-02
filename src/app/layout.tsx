@@ -10,6 +10,7 @@ import { AuthProvider } from "@/components/context/AuthContext";
 import { ThemeProvider } from "@/components/context/ThemeContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import PerformanceMonitor from "@/components/ui/PerformanceMonitor";
+import GlobalPerformanceOptimizer from "@/components/GlobalPerformanceOptimizer";
 
 import "@/lib/fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
