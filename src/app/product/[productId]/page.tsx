@@ -21,7 +21,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
   
   const { addToCart, isInCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
-  const { navigateInstant, optimizeClick } = useInstantNavigation();
+  const { navigate } = useSimpleNavigation();
   
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
