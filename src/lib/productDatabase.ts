@@ -10,8 +10,8 @@ export const productDatabase: Product[] = [
     brand: "Amul",
     description: "Fresh and pure toned milk, rich in proteins and calcium. Perfect for daily consumption.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Amul Fresh Milk" },
-      { id: "2", url: "/assets/images/surfexcel.png", alt: "Amul Fresh Milk Back" }
+      { id: "1", url: getProductImage("dairy-001", "Amul Fresh Milk", "milk"), alt: "Amul Fresh Milk" },
+      { id: "2", url: getProductImage("dairy-001", "Amul Fresh Milk", "milk"), alt: "Amul Fresh Milk Back" }
     ],
     variants: [
       { id: "1", size: "500 ml", price: 28, originalPrice: 30, unit: "ml" },
@@ -24,7 +24,7 @@ export const productDatabase: Product[] = [
     tags: ["Fresh", "Daily Use", "Protein Rich"],
     benefits: ["Rich in calcium", "High protein content", "Fresh daily delivery", "No preservatives"],
     nutritionalInfo: { fat: "3.2g", protein: "3.5g", carbs: "4.7g", calories: "60" },
-    storageInstructions: "Store in refrigerator below 4°C",
+    storageInstructions: "Store in refrigerator below 4��C",
     expiryInfo: "Best before 3 days from packaging date"
   },
   {
