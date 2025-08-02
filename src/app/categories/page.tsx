@@ -130,7 +130,7 @@ const allCategories = [
 
 const CategoriesPage: React.FC = () => {
   const router = useRouter();
-  const { navigateInstant, optimizeClick } = useInstantNavigation();
+  const { navigate } = useSimpleNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("popularity");
 
