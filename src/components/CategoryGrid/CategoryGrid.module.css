@@ -1,7 +1,7 @@
 /* Clean Category Grid Styles */
 .categorySection {
   padding: 2.5rem 0;
-  background: #ffffff;
+  background: transparent;
   position: relative;
 }
 
@@ -39,11 +39,10 @@
 /* Categories Grid */
 .categoriesGrid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
-  max-width: 900px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -168,16 +167,23 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .categoriesGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .categoriesGrid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
-  
+
   .categoryImageContainer {
-    height: 160px;
+    height: 120px;
   }
-  
+
   .sectionTitle {
     font-size: 2.25rem;
   }
@@ -187,38 +193,38 @@
   .categorySection {
     padding: 2rem 0;
   }
-  
+
   .container {
     padding: 0 1rem;
   }
-  
+
   .sectionHeader {
     margin-bottom: 2rem;
   }
-  
+
   .sectionTitle {
     font-size: 2rem;
   }
-  
+
   .sectionDescription {
     font-size: 1rem;
   }
-  
+
   .categoriesGrid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-  
+
   .categoryCard {
-    padding: 1.25rem;
+    padding: 1rem;
   }
-  
+
   .categoryImageContainer {
-    height: 140px;
+    height: 100px;
   }
-  
+
   .categoryName {
-    font-size: 1.125rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -268,9 +274,9 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .categorySection {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: transparent;
   }
-  
+
   .sectionTitle {
     color: #f1f5f9;
     background: linear-gradient(135deg, #f1f5f9 0%, #47b05a 100%);
@@ -278,20 +284,20 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
+
   .sectionDescription {
     color: #94a3b8;
   }
-  
+
   .categoryCard {
     background: #1e293b;
     border-color: rgba(71, 176, 90, 0.2);
   }
-  
+
   .categoryName {
     color: #f1f5f9;
   }
-  
+
   .categorySubtitle {
     color: #94a3b8;
   }
