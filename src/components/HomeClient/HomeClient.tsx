@@ -168,13 +168,21 @@ const HomeClient: React.FC = () => {
               <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </div>
-          <ProductGrid
-            products={updateProductsWithState(dairyProducts).slice(0, 12)}
-            onWishlistToggle={handleWishlistToggle}
-            onAddToCart={handleAddToCart}
-            variant="default"
-            className="home-products-grid"
-          />
+          {dairyProducts.length > 0 ? (
+            <ProductGrid
+              products={updateProductsWithState(dairyProducts).slice(0, 12)}
+              onWishlistToggle={handleWishlistToggle}
+              onAddToCart={handleAddToCart}
+              variant="default"
+              className="home-products-grid"
+            />
+          ) : isPriceSaverActive ? (
+            <div className="price-saver-empty-state">
+              <div className="empty-state-icon">🥛</div>
+              <h3 className="empty-state-title">No Dairy Offers Available</h3>
+              <p className="empty-state-message">No special offers in this category right now. Check back soon!</p>
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -192,13 +200,21 @@ const HomeClient: React.FC = () => {
               <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </div>
-          <ProductGrid
-            products={updateProductsWithState(snacksProducts).slice(0, 12)}
-            onWishlistToggle={handleWishlistToggle}
-            onAddToCart={handleAddToCart}
-            variant="default"
-            className="home-products-grid"
-          />
+          {snacksProducts.length > 0 ? (
+            <ProductGrid
+              products={updateProductsWithState(snacksProducts).slice(0, 12)}
+              onWishlistToggle={handleWishlistToggle}
+              onAddToCart={handleAddToCart}
+              variant="default"
+              className="home-products-grid"
+            />
+          ) : isPriceSaverActive ? (
+            <div className="price-saver-empty-state">
+              <div className="empty-state-icon">🍿</div>
+              <h3 className="empty-state-title">No Snacks Offers Available</h3>
+              <p className="empty-state-message">No special offers in this category right now. Check back soon!</p>
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -216,13 +232,21 @@ const HomeClient: React.FC = () => {
               <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </div>
-          <ProductGrid
-            products={updateProductsWithState(drinksProducts).slice(0, 12)}
-            onWishlistToggle={handleWishlistToggle}
-            onAddToCart={handleAddToCart}
-            variant="default"
-            className="home-products-grid"
-          />
+          {drinksProducts.length > 0 ? (
+            <ProductGrid
+              products={updateProductsWithState(drinksProducts).slice(0, 12)}
+              onWishlistToggle={handleWishlistToggle}
+              onAddToCart={handleAddToCart}
+              variant="default"
+              className="home-products-grid"
+            />
+          ) : isPriceSaverActive ? (
+            <div className="price-saver-empty-state">
+              <div className="empty-state-icon">🥤</div>
+              <h3 className="empty-state-title">No Drinks Offers Available</h3>
+              <p className="empty-state-message">No special offers in this category right now. Check back soon!</p>
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -240,13 +264,21 @@ const HomeClient: React.FC = () => {
               <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </div>
-          <ProductGrid
-            products={updateProductsWithState(vegetablesProducts).slice(0, 12)}
-            onWishlistToggle={handleWishlistToggle}
-            onAddToCart={handleAddToCart}
-            variant="default"
-            className="home-products-grid"
-          />
+          {vegetablesProducts.length > 0 ? (
+            <ProductGrid
+              products={updateProductsWithState(vegetablesProducts).slice(0, 12)}
+              onWishlistToggle={handleWishlistToggle}
+              onAddToCart={handleAddToCart}
+              variant="default"
+              className="home-products-grid"
+            />
+          ) : isPriceSaverActive ? (
+            <div className="price-saver-empty-state">
+              <div className="empty-state-icon">🥬</div>
+              <h3 className="empty-state-title">No Fresh Produce Offers Available</h3>
+              <p className="empty-state-message">No special offers in this category right now. Check back soon!</p>
+            </div>
+          ) : null}
         </div>
       </section>
     </div>
