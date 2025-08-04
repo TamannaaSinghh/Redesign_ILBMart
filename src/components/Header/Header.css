@@ -462,36 +462,24 @@
   color: var(--text-muted);
 }
 
-.mobile-price-saver {
+/* Mobile Price Saver Wrapper */
+.mobile-price-saver-wrapper {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--surface-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  font-size: var(--font-xs);
-  font-weight: var(--font-medium);
-  white-space: nowrap;
+  transition: all 0.3s ease;
 }
 
-.mobile-price-saver.active {
-  background: var(--primary-color);
-  color: var(--text-white);
-  border-color: var(--primary-color);
+.mobile-price-saver-wrapper.active {
+  animation: mobileActiveGlow 2s infinite ease-in-out;
 }
 
-.mobile-flash-icon {
-  font-size: 12px;
-  color: var(--text-muted);
-  transition: color var(--transition-normal);
-}
-
-.mobile-flash-icon.flash-active {
-  color: var(--text-white);
-  animation: flash 1s infinite;
+@keyframes mobileActiveGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(71, 176, 90, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(71, 176, 90, 0.6));
+  }
 }
 
 /* Mobile Search Bar */
