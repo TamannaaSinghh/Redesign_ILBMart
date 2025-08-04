@@ -108,25 +108,7 @@
   position: relative;
 }
 
-.price-saver-mode .section-title::after {
-  content: '⚡ OFFERS';
-  position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  background: #47b05a;
-  color: white;
-  font-size: 0.6rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 12px;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(71, 176, 90, 0.3);
-  animation: offerBadgePulse 2s infinite;
-}
 
-@keyframes offerBadgePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
 
 /* Empty State for Price Saver Mode */
 .price-saver-empty-state {
@@ -200,12 +182,7 @@
     padding: 0.375rem 0.75rem;
   }
   
-  .price-saver-mode .section-title::after {
-    position: static;
-    display: inline-block;
-    margin-left: 0.5rem;
-    transform: none;
-  }
+
 }
 
 @media (max-width: 480px) {
