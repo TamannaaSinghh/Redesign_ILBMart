@@ -9,14 +9,15 @@ const GlobalPerformanceOptimizer: React.FC = () => {
   useEffect(() => {
     // Optimize all existing links for instant navigation
     const optimizeLinks = () => {
-      const links = document.querySelectorAll('a[href^="/"]');
-      
+      // Only optimize regular links, not navigation buttons
+      const links = document.querySelectorAll('a[href^="/"]:not(.nav-item):not(.mobile-nav-item)');
+
       links.forEach(link => {
         const href = link.getAttribute('href');
         if (!href || link.hasAttribute('data-optimized')) return;
-        
+
         link.setAttribute('data-optimized', 'true');
-        
+
         // Add hover prefetching
         link.addEventListener('mouseenter', () => {
           if (href && !href.startsWith('#')) {
@@ -24,7 +25,7 @@ const GlobalPerformanceOptimizer: React.FC = () => {
             prefetchLink.rel = 'prefetch';
             prefetchLink.href = href;
             document.head.appendChild(prefetchLink);
-            
+
             // Remove after 30 seconds to prevent memory issues
             setTimeout(() => {
               if (document.head.contains(prefetchLink)) {
@@ -33,13 +34,13 @@ const GlobalPerformanceOptimizer: React.FC = () => {
             }, 30000);
           }
         }, { once: true });
-        
-        // Add click optimization
+
+        // Add click optimization only for non-navigation links
         link.addEventListener('click', (e) => {
           const target = e.target as HTMLElement;
           target.style.transform = 'scale(0.98)';
           target.style.transition = 'transform 0.1s ease';
-          
+
           setTimeout(() => {
             target.style.transform = 'scale(1)';
           }, 100);
