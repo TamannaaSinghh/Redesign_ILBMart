@@ -135,7 +135,24 @@ const HomeClient: React.FC = () => {
   };
 
   return (
-    <div className="home-client">
+    <div className={`home-client ${isPriceSaverActive ? 'price-saver-mode' : ''}`}>
+      {/* Price Saver Mode Banner */}
+      {isPriceSaverActive && (
+        <div className="price-saver-banner">
+          <div className="container">
+            <div className="banner-content">
+              <span className="banner-icon">⚡</span>
+              <div className="banner-text">
+                <h3>Price Saver Mode Active</h3>
+                <p>Showing only products with special offers and discounts</p>
+              </div>
+              <div className="banner-stats">
+                <span className="stats-text">Save up to 50% off</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Dairy, Bread & Eggs Section */}
       <section className="product-section dairy-section">
         <div className="container">
