@@ -303,12 +303,13 @@
   color: var(--text-primary);
   padding: var(--space-sm);
   border-radius: var(--radius-sm);
-  transition: all var(--transition-normal);
+  transition: all 0.1s ease;
   background: none;
   border: none;
   cursor: pointer;
   font-size: var(--font-xs);
   font-weight: var(--font-medium);
+  font-family: inherit;
 }
 
 .nav-item:hover {
@@ -448,9 +449,10 @@
   border: none;
   cursor: pointer;
   border-radius: var(--radius-sm);
-  transition: background-color var(--transition-normal);
+  transition: all 0.1s ease;
   text-decoration: none;
   color: var(--text-primary);
+  font-family: inherit;
 }
 
 .mobile-nav-item:hover {
