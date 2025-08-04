@@ -1,7 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useInstantNavigation } from "@/lib/navigationOptimizer";
+import { getProductImage, getFallbackImage } from "@/lib/productImages";
+import { getEnhancedImageUrl } from "@/lib/updateProductImages";
+import { useInstantNavigation, useHoverPrefetch } from "@/lib/performanceOptimizer";
 
 export interface ProductCardData {
   id: string;
@@ -40,11 +42,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
   className = "",
 }) => {
   const router = useRouter();
-  const { navigateInstant, optimizeClick } = useInstantNavigation();
-
-  const handleCardClick = optimizeClick(() => {
-    navigateInstant(`/product/${product.id}`);
+  const { createOptimizedHandler } = useInstantNavigation();
+  const hoverPrefetch = useHoverPrefetch();
+  const [imageError, setImageError] = useState(false);
+  const [imageSrc, setImageSrc] = useState(() => {
+    // Use enhanced image system for better product images
+    return getEnhancedImageUrl(product);
   });
+
+  const handleCardClick = createOptimizedHandler(`/product/${product.id}`);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -84,6 +90,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  const handleImageError = () => {
+    if (!imageError) {
+      setImageError(true);
+      // Try fallback image first
+      const fallback = getFallbackImage(product.title);
+      setImageSrc(fallback);
+    } else {
+      // If fallback also fails, use default
+      setImageSrc("/assets/images/default-img.png");
+    }
+  };
+
   const discount = product.originalPrice && product.originalPrice > product.price
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : product.discount || 0;
@@ -97,7 +115,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   `.trim();
 
   return (
-    <div className={cardClasses} onClick={handleCardClick}>
+    <div
+      className={cardClasses}
+      onClick={handleCardClick}
+      onMouseEnter={() => hoverPrefetch(`/product/${product.id}`)}
+    >
       {/* Wishlist Button */}
       {showWishlist && (
         <button
@@ -131,12 +153,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="product-image">
         <div className="image-container">
           <img
-            src={product.imageUrl || "/assets/images/default-img.png"}
+            src={imageSrc}
             alt={product.title}
             loading="lazy"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = "/assets/images/default-img.png";
-            }}
+            onError={handleImageError}
+            className={`product-img ${imageError ? 'fallback-image' : ''}`}
           />
           {product.outOfStock && (
             <div className="out-of-stock-overlay">

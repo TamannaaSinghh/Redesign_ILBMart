@@ -23,6 +23,9 @@ import { useLocation } from "@/components/context/LocationContext";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import LoginModal from "@/components/Login/LoginModal/LoginModal";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+import ToggleSlider from "@/components/ui/ToggleSlider";
+import { usePriceSaver } from "@/components/context/PriceSaverContext";
 import "./Header.css";
 
 const MobileHeader: React.FC = () => {
@@ -36,7 +39,17 @@ const MobileHeader: React.FC = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState<number>(0);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
-  const [isPriceSaverActive, setIsPriceSaverActive] = useState<boolean>(false);
+  // Use PriceSaver context
+  const { isPriceSaverActive, togglePriceSaver } = usePriceSaver();
+
+  // Instant navigation handlers
+  const handleWishlistClick = () => {
+    router.push('/wishlist');
+  };
+
+  const handleCartClick = () => {
+    router.push('/cart');
+  };
   const [userImage, setUserImage] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -63,9 +76,7 @@ const MobileHeader: React.FC = () => {
       }
     }
 
-    // Initialize Price Saver state
-    const priceSaverPref = localStorage.getItem("priceSaverActive");
-    setIsPriceSaverActive(priceSaverPref === "true");
+
   }, []);
 
   // Listen for storage changes
@@ -125,11 +136,7 @@ const MobileHeader: React.FC = () => {
     router.push("/");
   };
 
-  const togglePriceSaver = (): void => {
-    const newState = !isPriceSaverActive;
-    setIsPriceSaverActive(newState);
-    localStorage.setItem("priceSaverActive", String(newState));
-  };
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -170,29 +177,41 @@ const MobileHeader: React.FC = () => {
           </div>
 
           <div className="mobile-header-right">
-            <Link href="/wishlist" className="mobile-nav-item wishlist">
-              <div className="mobile-icon-wrapper">
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="mobile-nav-icon heart-icon"
-                />
-                {wishlistCount > 0 && (
-                  <span className="mobile-badge">{wishlistCount}</span>
-                )}
-              </div>
-            </Link>
+            <div className="mobile-nav-item theme">
+              <ThemeToggle size="sm" showLabel={false} />
+            </div>
 
-            <Link href="/cart" className="mobile-nav-item cart">
-              <div className="mobile-icon-wrapper">
-                <FontAwesomeIcon
-                  icon={faShoppingCart}
-                  className="mobile-nav-icon cart-icon"
-                />
-                {cartCount > 0 && (
-                  <span className="mobile-badge">{cartCount}</span>
-                )}
-              </div>
-            </Link>
+            <button
+            className="mobile-nav-item wishlist"
+            onClick={handleWishlistClick}
+            type="button"
+          >
+            <div className="mobile-icon-wrapper">
+              <FontAwesomeIcon
+                icon={faHeart}
+                className="mobile-nav-icon heart-icon"
+              />
+              {wishlistCount > 0 && (
+                <span className="mobile-badge">{wishlistCount}</span>
+              )}
+            </div>
+          </button>
+
+            <button
+            className="mobile-nav-item cart"
+            onClick={handleCartClick}
+            type="button"
+          >
+            <div className="mobile-icon-wrapper">
+              <FontAwesomeIcon
+                icon={faShoppingCart}
+                className="mobile-nav-icon cart-icon"
+              />
+              {cartCount > 0 && (
+                <span className="mobile-badge">{cartCount}</span>
+              )}
+            </div>
+          </button>
 
             {isLoggedIn ? (
               <button className="mobile-nav-item profile" onClick={handleAccountClick}>
@@ -250,6 +269,11 @@ const MobileHeader: React.FC = () => {
               className={`mobile-flash-icon ${isPriceSaverActive ? "flash-active" : ""}`}
             />
             <span>Price Saver</span>
+            <div className="mobile-mini-toggle">
+              <div className={`mobile-mini-toggle-track ${isPriceSaverActive ? "active" : ""}`}>
+                <div className="mobile-mini-toggle-thumb"></div>
+              </div>
+            </div>
           </button>
         </div>
 

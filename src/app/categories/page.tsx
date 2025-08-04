@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { useInstantNavigation } from "@/lib/navigationOptimizer";
+import { useSimpleNavigation } from "@/lib/simpleNavigation";
 import "./categories.css";
 
 // Extended categories data for the View All page
@@ -130,7 +130,7 @@ const allCategories = [
 
 const CategoriesPage: React.FC = () => {
   const router = useRouter();
-  const { navigateInstant, optimizeClick } = useInstantNavigation();
+  const { navigate } = useSimpleNavigation();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("popularity");
 
@@ -162,9 +162,9 @@ const CategoriesPage: React.FC = () => {
     }
   }, [searchQuery, sortBy]);
 
-  const handleCategoryClick = optimizeClick((categoryId: string) => {
-    navigateInstant(`/categories/${categoryId}`);
-  });
+  const handleCategoryClick = (categoryId: string) => {
+    navigate(`/categories/${categoryId}`);
+  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -287,9 +287,9 @@ const CategoriesPage: React.FC = () => {
 
         {/* Back to Home */}
         <div className="categories-footer">
-          <button 
+          <button
             className="back-home-btn"
-            onClick={optimizeClick(() => navigateInstant("/"))}
+            onClick={() => navigate("/")}
           >
             <span className="material-symbols-outlined">home</span>
             Back to Home

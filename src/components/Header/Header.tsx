@@ -20,6 +20,9 @@ import { useLocation } from "@/components/context/LocationContext";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import LoginModal from "@/components/Login/LoginModal/LoginModal";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+import ToggleSlider from "@/components/ui/ToggleSlider";
+import { usePriceSaver } from "@/components/context/PriceSaverContext";
 import "./Header.css";
 import MobileHeader from "./MobileHeader";
 
@@ -34,7 +37,7 @@ const Header: React.FC = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState<number>(0);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
-  const [isPriceSaverActive, setIsPriceSaverActive] = useState<boolean>(false);
+
   const [userImage, setUserImage] = useState<string | null>(null);
 
   const products: string[] = [
@@ -63,9 +66,7 @@ const Header: React.FC = () => {
       }
     }
 
-    // Initialize Price Saver state for all users (logged in or not)
-    const priceSaverPref = localStorage.getItem("priceSaverActive");
-    setIsPriceSaverActive(priceSaverPref === "true");
+
   }, []);
 
 
@@ -127,13 +128,18 @@ const Header: React.FC = () => {
     router.push("/");
   };
 
-  // Modified Price Saver toggle - now works without login
-  const togglePriceSaver = (): void => {
-    const newState = !isPriceSaverActive;
-    setIsPriceSaverActive(newState);
-    localStorage.setItem("priceSaverActive", String(newState));
+  // Use PriceSaver context
+  const { isPriceSaverActive, togglePriceSaver } = usePriceSaver();
 
-    console.log(`Price Saver ${newState ? "activated" : "deactivated"}`);
+  // Instant navigation handlers
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push('/wishlist');
+  };
+
+  const handleCartClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push('/cart');
   };
 
   return (
@@ -154,7 +160,7 @@ const Header: React.FC = () => {
           />
         </Link>
 
-        {/* Price Saver Button */}
+        {/* Price Saver Toggle */}
         <button
           className={`price-saver ${isPriceSaverActive ? "active" : ""}`}
           onClick={togglePriceSaver}
@@ -166,7 +172,12 @@ const Header: React.FC = () => {
             icon={faBolt}
             className={`flash-icon ${isPriceSaverActive ? "flash-active" : ""}`}
           />
-          <span>{isPriceSaverActive ? "Price Saver" : "Price Saver "}</span>
+          <span>Price Saver</span>
+          <div className="mini-toggle">
+            <div className={`mini-toggle-track ${isPriceSaverActive ? "active" : ""}`}>
+              <div className="mini-toggle-thumb"></div>
+            </div>
+          </div>
         </button>
 
         {/* Location Picker */}
@@ -210,8 +221,17 @@ const Header: React.FC = () => {
 
         {/* Navigation */}
         <nav className="header-nav">
+          {/* Theme Toggle */}
+          <div className="nav-item theme">
+            <ThemeToggle size="sm" showLabel={false} />
+          </div>
+
           {/* Wishlist Button */}
-          <Link href="/wishlist" className="nav-item wishlist">
+          <button
+            className="nav-item wishlist"
+            onClick={handleWishlistClick}
+            type="button"
+          >
             <div className="icon-wrapper">
               <FontAwesomeIcon
                 icon={faHeart}
@@ -222,10 +242,14 @@ const Header: React.FC = () => {
               )}
             </div>
             <span>Wishlist</span>
-          </Link>
+          </button>
 
           {/* Cart Button */}
-          <Link href="/cart" className="nav-item cart">
+          <button
+            className="nav-item cart"
+            onClick={handleCartClick}
+            type="button"
+          >
             <div className="icon-wrapper">
               <FontAwesomeIcon
                 icon={faShoppingCart}
@@ -236,7 +260,7 @@ const Header: React.FC = () => {
               )}
             </div>
             <span>Cart</span>
-          </Link>
+          </button>
 
           {/* Profile Button - shows different states based on login status */}
           {isLoggedIn ? (

@@ -7,7 +7,11 @@ import Footer from "@/components/Footer/Footer";
 import { CartProvider } from "@/components/context/CartContext";
 import { LocationProvider } from "@/components/context/LocationContext";
 import { AuthProvider } from "@/components/context/AuthContext";
+import { ThemeProvider } from "@/components/context/ThemeContext";
+import { PriceSaverProvider } from "@/components/context/PriceSaverContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import PerformanceMonitor from "@/components/ui/PerformanceMonitor";
+import GlobalPerformanceOptimizer from "@/components/GlobalPerformanceOptimizer";
 
 import "@/lib/fontawesome";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -65,21 +69,27 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        <TooltipProvider>
-          <CartProvider>
-            <AuthProvider>
-              <LocationProvider>
-                <Header />
-                <main>
-                  {/* Main content goes here */}
-                  {children}
-                </main>
+        <ThemeProvider defaultTheme="system" storageKey="ilb-theme">
+          <TooltipProvider>
+            <PriceSaverProvider>
+              <CartProvider>
+                <AuthProvider>
+                  <LocationProvider>
+                  <Header />
+                  <main>
+                    {/* Main content goes here */}
+                    {children}
+                  </main>
 
-                <Footer />
-              </LocationProvider>
-            </AuthProvider>
-          </CartProvider>
-        </TooltipProvider>
+                  <Footer />
+                  <PerformanceMonitor />
+                  <GlobalPerformanceOptimizer />
+                  </LocationProvider>
+                </AuthProvider>
+              </CartProvider>
+            </PriceSaverProvider>
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

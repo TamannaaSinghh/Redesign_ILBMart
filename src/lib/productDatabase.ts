@@ -1,4 +1,5 @@
 import { Product } from "./mockData";
+import { getProductImage } from "./productImages";
 
 // Comprehensive product database with 300+ items
 export const productDatabase: Product[] = [
@@ -9,8 +10,8 @@ export const productDatabase: Product[] = [
     brand: "Amul",
     description: "Fresh and pure toned milk, rich in proteins and calcium. Perfect for daily consumption.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Amul Fresh Milk" },
-      { id: "2", url: "/assets/images/surfexcel.png", alt: "Amul Fresh Milk Back" }
+      { id: "1", url: getProductImage("dairy-001", "Amul Fresh Milk", "milk"), alt: "Amul Fresh Milk" },
+      { id: "2", url: getProductImage("dairy-001", "Amul Fresh Milk", "milk"), alt: "Amul Fresh Milk Back" }
     ],
     variants: [
       { id: "1", size: "500 ml", price: 28, originalPrice: 30, unit: "ml" },
@@ -32,7 +33,7 @@ export const productDatabase: Product[] = [
     brand: "Britannia",
     description: "Soft and fresh white bread, perfect for breakfast and snacks.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Britannia White Bread" }
+      { id: "1", url: getProductImage("dairy-002", "Britannia Bread - White", "bread"), alt: "Britannia White Bread" }
     ],
     variants: [
       { id: "1", size: "400g", price: 32, originalPrice: 35, unit: "g" }
@@ -52,7 +53,7 @@ export const productDatabase: Product[] = [
     brand: "Amul",
     description: "Premium quality salted butter made from fresh cream.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Amul Salted Butter" }
+      { id: "1", url: getProductImage("dairy-003", "Amul Butter - Salted", "butter"), alt: "Amul Salted Butter" }
     ],
     variants: [
       { id: "1", size: "100g", price: 62, unit: "g" },
@@ -73,7 +74,7 @@ export const productDatabase: Product[] = [
     brand: "Nandini",
     description: "Fresh and creamy curd made from pure milk.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Nandini Fresh Curd" }
+      { id: "1", url: getProductImage("dairy-004", "Nandini Fresh Curd", "curd"), alt: "Nandini Fresh Curd" }
     ],
     variants: [
       { id: "1", size: "415g", price: 28, unit: "g" },
@@ -94,7 +95,7 @@ export const productDatabase: Product[] = [
     brand: "Mother Dairy",
     description: "Fresh cottage cheese made from pure milk.",
     images: [
-      { id: "1", url: "/assets/images/surfexcel.png", alt: "Mother Dairy Paneer" }
+      { id: "1", url: getProductImage("dairy-005", "Mother Dairy Paneer", "paneer"), alt: "Mother Dairy Paneer" }
     ],
     variants: [
       { id: "1", size: "200g", price: 85, unit: "g" }

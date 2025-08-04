@@ -36,7 +36,9 @@ export class NavigationOptimizer {
   preloadRoute(href: string) {
     if (this.preloadedRoutes.has(href)) return;
 
-    if (this.router && this.router.prefetch) {
+    // Disable prefetching to prevent fetch errors in the current environment
+    // Can be re-enabled later when server configuration is stable
+    if (false && this.router && this.router.prefetch) {
       try {
         this.router.prefetch(href);
         this.preloadedRoutes.add(href);
@@ -54,16 +56,16 @@ export class NavigationOptimizer {
         optimisticUpdate();
       }
 
-      // Navigate with router
-      if (this.router) {
-        this.router.push(href);
-      } else {
-        // Fallback to window.location if router is not available
+      // Use window.location for more reliable navigation during development
+      if (typeof window !== 'undefined') {
         window.location.href = href;
       }
     } catch (error) {
-      console.warn('Navigation failed, using fallback:', href, error);
-      window.location.href = href;
+      console.warn('Navigation failed:', href, error);
+      // Ultimate fallback
+      if (typeof window !== 'undefined') {
+        window.location.href = href;
+      }
     }
   }
 
@@ -167,13 +169,23 @@ export const navigationOptimizer = NavigationOptimizer.getInstance();
 
 // Hook for using navigation optimizer
 export function useInstantNavigation() {
-  const router = typeof window !== 'undefined' ? require('next/navigation').useRouter() : null;
-  
+  const [router, setRouter] = React.useState<any>(null);
+
   React.useEffect(() => {
-    if (router) {
-      navigationOptimizer.setRouter(router);
+    if (typeof window !== 'undefined') {
+      import('next/navigation').then(({ useRouter }) => {
+        try {
+          const routerInstance = useRouter();
+          setRouter(routerInstance);
+          navigationOptimizer.setRouter(routerInstance);
+        } catch (error) {
+          console.warn('Router not available, using fallback navigation');
+        }
+      }).catch(() => {
+        console.warn('Failed to load router, using fallback navigation');
+      });
     }
-  }, [router]);
+  }, []);
 
   return {
     navigateInstant: navigationOptimizer.navigateInstant.bind(navigationOptimizer),

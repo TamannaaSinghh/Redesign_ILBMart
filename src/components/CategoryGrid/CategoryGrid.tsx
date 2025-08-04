@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import styles from "./CategoryGrid.module.css";
+import { useInstantNavigation, useImagePreloader, useHoverPrefetch } from "@/lib/performanceOptimizer";
 
 // Fresh category data with real images and proper structure
 const categoryData = [
@@ -80,15 +80,24 @@ const categoryData = [
 ];
 
 const CategoryGrid: React.FC = () => {
-  const router = useRouter();
+  const { createOptimizedHandler, prefetchRoute } = useInstantNavigation();
+  const hoverPrefetch = useHoverPrefetch();
 
-  const handleCategoryClick = (categoryId: string) => {
-    router.push(`/categories/${categoryId}`);
-  };
+  // Preload all category images for instant display
+  const categoryImages = categoryData.map(cat => cat.image);
+  useImagePreloader(categoryImages);
 
-  const handleViewAllClick = () => {
-    router.push("/categories");
-  };
+  // Prefetch critical routes on component mount
+  useEffect(() => {
+    // Prefetch categories page and first few category pages
+    prefetchRoute('/categories');
+    categoryData.slice(0, 4).forEach(category => {
+      prefetchRoute(`/categories/${category.id}`);
+    });
+  }, [prefetchRoute]);
+
+  const handleCategoryClick = createOptimizedHandler;
+  const handleViewAllClick = createOptimizedHandler('/categories');
 
   return (
     <section className={styles.categorySection}>
@@ -107,10 +116,11 @@ const CategoryGrid: React.FC = () => {
             <div
               key={category.id}
               className={styles.categoryCard}
-              onClick={() => handleCategoryClick(category.id)}
-              style={{ 
+              onClick={handleCategoryClick(`/categories/${category.id}`)}
+              onMouseEnter={() => hoverPrefetch(`/categories/${category.id}`)}
+              style={{
                 backgroundColor: category.bgColor,
-                animationDelay: `${index * 100}ms` 
+                animationDelay: `${index * 50}ms`
               }}
             >
               <div className={styles.categoryImageContainer}>
@@ -140,9 +150,10 @@ const CategoryGrid: React.FC = () => {
 
         {/* View All Button */}
         <div className={styles.viewAllContainer}>
-          <button 
+          <button
             className={styles.viewAllButton}
             onClick={handleViewAllClick}
+            onMouseEnter={() => hoverPrefetch('/categories')}
           >
             <span>View All Categories</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">

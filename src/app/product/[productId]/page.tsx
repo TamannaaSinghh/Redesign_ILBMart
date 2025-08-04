@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { getProductById } from "@/lib/mockData";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
-import { useInstantNavigation } from "@/lib/navigationOptimizer";
+import { useSimpleNavigation } from "@/lib/simpleNavigation";
 import { getProductImage } from "@/lib/imageUrls";
 import "./product-detail.css";
 
@@ -21,7 +21,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
   
   const { addToCart, isInCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
-  const { navigateInstant, optimizeClick } = useInstantNavigation();
+  const { navigate } = useSimpleNavigation();
   
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -48,9 +48,9 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
             </div>
             <h1>Product Not Found</h1>
             <p>The product you're looking for doesn't exist or has been removed.</p>
-            <button 
+            <button
               className="back-btn"
-              onClick={optimizeClick(() => navigateInstant("/"))}
+              onClick={() => navigate("/")}
             >
               <span className="material-symbols-outlined">home</span>
               Back to Home
@@ -104,11 +104,11 @@ const ProductPage: React.FC<ProductPageProps> = ({ params }) => {
       <div className="container">
         {/* Breadcrumb */}
         <nav className="breadcrumb">
-          <button onClick={optimizeClick(() => navigateInstant("/"))}>
+          <button onClick={() => navigate("/")}>
             Home
           </button>
           <span className="breadcrumb-separator">/</span>
-          <button onClick={optimizeClick(() => navigateInstant("/categories"))}>
+          <button onClick={() => navigate("/categories")}>
             Categories
           </button>
           <span className="breadcrumb-separator">/</span>
