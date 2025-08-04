@@ -41,6 +41,15 @@ const MobileHeader: React.FC = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   // Use PriceSaver context
   const { isPriceSaverActive, togglePriceSaver } = usePriceSaver();
+
+  // Instant navigation handlers
+  const handleWishlistClick = () => {
+    router.push('/wishlist');
+  };
+
+  const handleCartClick = () => {
+    router.push('/cart');
+  };
   const [userImage, setUserImage] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -172,29 +181,37 @@ const MobileHeader: React.FC = () => {
               <ThemeToggle size="sm" showLabel={false} />
             </div>
 
-            <Link href="/wishlist" className="mobile-nav-item wishlist">
-              <div className="mobile-icon-wrapper">
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="mobile-nav-icon heart-icon"
-                />
-                {wishlistCount > 0 && (
-                  <span className="mobile-badge">{wishlistCount}</span>
-                )}
-              </div>
-            </Link>
+            <button
+            className="mobile-nav-item wishlist"
+            onClick={handleWishlistClick}
+            type="button"
+          >
+            <div className="mobile-icon-wrapper">
+              <FontAwesomeIcon
+                icon={faHeart}
+                className="mobile-nav-icon heart-icon"
+              />
+              {wishlistCount > 0 && (
+                <span className="mobile-badge">{wishlistCount}</span>
+              )}
+            </div>
+          </button>
 
-            <Link href="/cart" className="mobile-nav-item cart">
-              <div className="mobile-icon-wrapper">
-                <FontAwesomeIcon
-                  icon={faShoppingCart}
-                  className="mobile-nav-icon cart-icon"
-                />
-                {cartCount > 0 && (
-                  <span className="mobile-badge">{cartCount}</span>
-                )}
-              </div>
-            </Link>
+            <button
+            className="mobile-nav-item cart"
+            onClick={handleCartClick}
+            type="button"
+          >
+            <div className="mobile-icon-wrapper">
+              <FontAwesomeIcon
+                icon={faShoppingCart}
+                className="mobile-nav-icon cart-icon"
+              />
+              {cartCount > 0 && (
+                <span className="mobile-badge">{cartCount}</span>
+              )}
+            </div>
+          </button>
 
             {isLoggedIn ? (
               <button className="mobile-nav-item profile" onClick={handleAccountClick}>
