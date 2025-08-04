@@ -8,6 +8,7 @@ import { CartProvider } from "@/components/context/CartContext";
 import { LocationProvider } from "@/components/context/LocationContext";
 import { AuthProvider } from "@/components/context/AuthContext";
 import { ThemeProvider } from "@/components/context/ThemeContext";
+import { PriceSaverProvider } from "@/components/context/PriceSaverContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import PerformanceMonitor from "@/components/ui/PerformanceMonitor";
 import GlobalPerformanceOptimizer from "@/components/GlobalPerformanceOptimizer";
@@ -70,9 +71,10 @@ export default function RootLayout({
       >
         <ThemeProvider defaultTheme="system" storageKey="ilb-theme">
           <TooltipProvider>
-            <CartProvider>
-              <AuthProvider>
-                <LocationProvider>
+            <PriceSaverProvider>
+              <CartProvider>
+                <AuthProvider>
+                  <LocationProvider>
                   <Header />
                   <main>
                     {/* Main content goes here */}
@@ -82,9 +84,10 @@ export default function RootLayout({
                   <Footer />
                   <PerformanceMonitor />
                   <GlobalPerformanceOptimizer />
-                </LocationProvider>
-              </AuthProvider>
-            </CartProvider>
+                  </LocationProvider>
+                </AuthProvider>
+              </CartProvider>
+            </PriceSaverProvider>
           </TooltipProvider>
         </ThemeProvider>
       </body>
