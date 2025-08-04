@@ -6,9 +6,13 @@ import { mockProducts } from "@/lib/mockData";
 import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import { getProductImage } from "@/lib/imageUrls";
+import { usePriceSaver } from "@/components/context/PriceSaverContext";
 import "./HomeClient.module.css";
 
 const HomeClient: React.FC = () => {
+  // Use PriceSaver context to filter products
+  const { isPriceSaverActive } = usePriceSaver();
+
   // Convert mock products to ProductCardData format
   const allProducts: ProductCardData[] = useMemo(() => {
     return mockProducts.map(product => {
@@ -36,34 +40,47 @@ const HomeClient: React.FC = () => {
     });
   }, []);
 
+  // Helper function to filter products based on price saver state
+  const filterProductsByPriceSaver = (products: ProductCardData[]) => {
+    if (!isPriceSaverActive) {
+      return products;
+    }
+    // Only show products with discounts when price saver is active
+    return products.filter(product => product.discount && product.discount > 0);
+  };
+
   // Filter products by category using actual database categories
   const dairyProducts = useMemo(() => {
-    return allProducts.filter(product => product.id.startsWith('dairy-')).map(product => ({
+    const categoryProducts = allProducts.filter(product => product.id.startsWith('dairy-')).map(product => ({
       ...product,
       tags: ["DAIRY", ...product.tags.slice(1)],
     }));
-  }, [allProducts]);
+    return filterProductsByPriceSaver(categoryProducts);
+  }, [allProducts, isPriceSaverActive]);
 
   const snacksProducts = useMemo(() => {
-    return allProducts.filter(product => product.id.startsWith('snacks-')).map(product => ({
+    const categoryProducts = allProducts.filter(product => product.id.startsWith('snacks-')).map(product => ({
       ...product,
       tags: ["SNACKS", ...product.tags.slice(1)],
     }));
-  }, [allProducts]);
+    return filterProductsByPriceSaver(categoryProducts);
+  }, [allProducts, isPriceSaverActive]);
 
   const drinksProducts = useMemo(() => {
-    return allProducts.filter(product => product.id.startsWith('beverages-')).map(product => ({
+    const categoryProducts = allProducts.filter(product => product.id.startsWith('beverages-')).map(product => ({
       ...product,
       tags: ["DRINKS", ...product.tags.slice(1)],
     }));
-  }, [allProducts]);
+    return filterProductsByPriceSaver(categoryProducts);
+  }, [allProducts, isPriceSaverActive]);
 
   const vegetablesProducts = useMemo(() => {
-    return allProducts.filter(product => product.id.startsWith('fruits-')).map(product => ({
+    const categoryProducts = allProducts.filter(product => product.id.startsWith('fruits-')).map(product => ({
       ...product,
       tags: ["FRESH", ...product.tags.slice(1)],
     }));
-  }, [allProducts]);
+    return filterProductsByPriceSaver(categoryProducts);
+  }, [allProducts, isPriceSaverActive]);
 
   // Use cart and wishlist hooks
   const { addToCart, isInCart, isLoading: cartLoading } = useCart();
