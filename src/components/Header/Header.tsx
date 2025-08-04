@@ -150,15 +150,24 @@ const Header: React.FC = () => {
         </Link>
 
         {/* Price Saver Toggle */}
-        <div className={`price-saver-wrapper ${isPriceSaverActive ? 'active' : ''}`}>
-          <ToggleSlider
-            isActive={isPriceSaverActive}
-            onToggle={togglePriceSaver}
-            label="Price Saver"
-            size="md"
-            showIcon={true}
+        <button
+          className={`price-saver ${isPriceSaverActive ? "active" : ""}`}
+          onClick={togglePriceSaver}
+          aria-label={
+            isPriceSaverActive ? "Turn off Price Saver" : "Turn on Price Saver"
+          }
+        >
+          <FontAwesomeIcon
+            icon={faBolt}
+            className={`flash-icon ${isPriceSaverActive ? "flash-active" : ""}`}
           />
-        </div>
+          <span>Price Saver</span>
+          <div className="mini-toggle">
+            <div className={`mini-toggle-track ${isPriceSaverActive ? "active" : ""}`}>
+              <div className="mini-toggle-thumb"></div>
+            </div>
+          </div>
+        </button>
 
         {/* Location Picker */}
         <div className="location-picker" onClick={() => setShowPopup(true)}>
