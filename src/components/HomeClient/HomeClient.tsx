@@ -8,6 +8,7 @@ import { useWishlist } from "@/hooks/useWishlist";
 import { getProductImage } from "@/lib/imageUrls";
 import { usePriceSaver } from "@/components/context/PriceSaverContext";
 import "./HomeClient.module.css";
+import "./PriceSaverMode.css";
 
 const HomeClient: React.FC = () => {
   // Use PriceSaver context to filter products
