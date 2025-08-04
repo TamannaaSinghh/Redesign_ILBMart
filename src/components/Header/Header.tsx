@@ -131,6 +131,17 @@ const Header: React.FC = () => {
   // Use PriceSaver context
   const { isPriceSaverActive, togglePriceSaver } = usePriceSaver();
 
+  // Instant navigation handlers
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push('/wishlist');
+  };
+
+  const handleCartClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push('/cart');
+  };
+
   return (
     <header>
       <div className="ilb-header">
@@ -216,7 +227,11 @@ const Header: React.FC = () => {
           </div>
 
           {/* Wishlist Button */}
-          <Link href="/wishlist" className="nav-item wishlist">
+          <button
+            className="nav-item wishlist"
+            onClick={handleWishlistClick}
+            type="button"
+          >
             <div className="icon-wrapper">
               <FontAwesomeIcon
                 icon={faHeart}
@@ -227,10 +242,14 @@ const Header: React.FC = () => {
               )}
             </div>
             <span>Wishlist</span>
-          </Link>
+          </button>
 
           {/* Cart Button */}
-          <Link href="/cart" className="nav-item cart">
+          <button
+            className="nav-item cart"
+            onClick={handleCartClick}
+            type="button"
+          >
             <div className="icon-wrapper">
               <FontAwesomeIcon
                 icon={faShoppingCart}
@@ -241,7 +260,7 @@ const Header: React.FC = () => {
               )}
             </div>
             <span>Cart</span>
-          </Link>
+          </button>
 
           {/* Profile Button - shows different states based on login status */}
           {isLoggedIn ? (
