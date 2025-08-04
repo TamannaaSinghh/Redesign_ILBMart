@@ -829,6 +829,20 @@
     display: none;
   }
 
+  .mobile-mini-toggle-track {
+    width: 16px;
+    height: 8px;
+  }
+
+  .mobile-mini-toggle-thumb {
+    width: 4px;
+    height: 4px;
+  }
+
+  .mobile-mini-toggle-track.active .mobile-mini-toggle-thumb {
+    transform: translateX(8px);
+  }
+
   .mobile-search-bar {
     padding: 0.5rem var(--space-sm);
   }
