@@ -240,19 +240,15 @@ const MobileHeader: React.FC = () => {
             </span>
           </div>
 
-          <button
-            className={`mobile-price-saver ${isPriceSaverActive ? "active" : ""}`}
-            onClick={togglePriceSaver}
-            aria-label={
-              isPriceSaverActive ? "Turn off Price Saver" : "Turn on Price Saver"
-            }
-          >
-            <FontAwesomeIcon
-              icon={faBolt}
-              className={`mobile-flash-icon ${isPriceSaverActive ? "flash-active" : ""}`}
+          <div className={`mobile-price-saver-wrapper ${isPriceSaverActive ? 'active' : ''}`}>
+            <ToggleSlider
+              isActive={isPriceSaverActive}
+              onToggle={togglePriceSaver}
+              label=""
+              size="sm"
+              showIcon={true}
             />
-            <span>Price Saver</span>
-          </button>
+          </div>
         </div>
 
         {/* Third Row - Search Bar */}
