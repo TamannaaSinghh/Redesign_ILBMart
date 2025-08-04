@@ -24,6 +24,8 @@ import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import LoginModal from "@/components/Login/LoginModal/LoginModal";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import ToggleSlider from "@/components/ui/ToggleSlider";
+import { usePriceSaver } from "@/components/context/PriceSaverContext";
 import "./Header.css";
 
 const MobileHeader: React.FC = () => {
@@ -37,7 +39,8 @@ const MobileHeader: React.FC = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState<number>(0);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
-  const [isPriceSaverActive, setIsPriceSaverActive] = useState<boolean>(false);
+  // Use PriceSaver context
+  const { isPriceSaverActive, togglePriceSaver } = usePriceSaver();
   const [userImage, setUserImage] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -64,9 +67,7 @@ const MobileHeader: React.FC = () => {
       }
     }
 
-    // Initialize Price Saver state
-    const priceSaverPref = localStorage.getItem("priceSaverActive");
-    setIsPriceSaverActive(priceSaverPref === "true");
+
   }, []);
 
   // Listen for storage changes
@@ -126,11 +127,7 @@ const MobileHeader: React.FC = () => {
     router.push("/");
   };
 
-  const togglePriceSaver = (): void => {
-    const newState = !isPriceSaverActive;
-    setIsPriceSaverActive(newState);
-    localStorage.setItem("priceSaverActive", String(newState));
-  };
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
