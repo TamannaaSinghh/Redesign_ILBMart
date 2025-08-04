@@ -21,6 +21,8 @@ import { useCart } from "@/hooks/useCart";
 import { useWishlist } from "@/hooks/useWishlist";
 import LoginModal from "@/components/Login/LoginModal/LoginModal";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import ToggleSlider from "@/components/ui/ToggleSlider";
+import { usePriceSaver } from "@/components/context/PriceSaverContext";
 import "./Header.css";
 import MobileHeader from "./MobileHeader";
 
@@ -35,7 +37,7 @@ const Header: React.FC = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState<number>(0);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
-  const [isPriceSaverActive, setIsPriceSaverActive] = useState<boolean>(false);
+
   const [userImage, setUserImage] = useState<string | null>(null);
 
   const products: string[] = [
@@ -64,9 +66,7 @@ const Header: React.FC = () => {
       }
     }
 
-    // Initialize Price Saver state for all users (logged in or not)
-    const priceSaverPref = localStorage.getItem("priceSaverActive");
-    setIsPriceSaverActive(priceSaverPref === "true");
+
   }, []);
 
 
@@ -128,14 +128,8 @@ const Header: React.FC = () => {
     router.push("/");
   };
 
-  // Modified Price Saver toggle - now works without login
-  const togglePriceSaver = (): void => {
-    const newState = !isPriceSaverActive;
-    setIsPriceSaverActive(newState);
-    localStorage.setItem("priceSaverActive", String(newState));
-
-    console.log(`Price Saver ${newState ? "activated" : "deactivated"}`);
-  };
+  // Use PriceSaver context
+  const { isPriceSaverActive, togglePriceSaver } = usePriceSaver();
 
   return (
     <header>
@@ -155,20 +149,16 @@ const Header: React.FC = () => {
           />
         </Link>
 
-        {/* Price Saver Button */}
-        <button
-          className={`price-saver ${isPriceSaverActive ? "active" : ""}`}
-          onClick={togglePriceSaver}
-          aria-label={
-            isPriceSaverActive ? "Turn off Price Saver" : "Turn on Price Saver"
-          }
-        >
-          <FontAwesomeIcon
-            icon={faBolt}
-            className={`flash-icon ${isPriceSaverActive ? "flash-active" : ""}`}
+        {/* Price Saver Toggle */}
+        <div className={`price-saver-wrapper ${isPriceSaverActive ? 'active' : ''}`}>
+          <ToggleSlider
+            isActive={isPriceSaverActive}
+            onToggle={togglePriceSaver}
+            label="Price Saver"
+            size="md"
+            showIcon={true}
           />
-          <span>{isPriceSaverActive ? "Price Saver" : "Price Saver "}</span>
-        </button>
+        </div>
 
         {/* Location Picker */}
         <div className="location-picker" onClick={() => setShowPopup(true)}>
